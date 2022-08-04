@@ -16,8 +16,8 @@ categories: [code]
     crossorigin=""></script>
 
 
-<script src="/assets/data/tracts.js"></script>
-<script src="/assets/data/boarder.js"></script>
+<script src="tracts.js"></script>
+<script src="boarder.js"></script>
 
 
 <style>
