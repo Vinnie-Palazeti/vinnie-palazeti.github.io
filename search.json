@@ -14,11 +14,18 @@
     "text": "Since this post doesn’t specify an explicit image, the first image in the post will be used in the listing page of posts."
   },
   {
+    "objectID": "posts/leaflet/index.html",
+    "href": "posts/leaflet/index.html",
+    "title": "leaflet",
+    "section": "",
+    "text": "My goal is to create geojsons from a Postgis database.\n\n\n\n\n\n\n\nThings to keep in mind:"
+  },
+  {
     "objectID": "index.html",
     "href": "index.html",
     "title": "myblog",
     "section": "",
-    "text": "code\n\n\n\n\n\n\n\n\n\n\n\nAug 4, 2022\n\n\nVincenzo Palazeti\n\n\n\n\n\n\n  \n\n\n\n\n\n\n\n\n\n\nnews\n\n\n\n\n\n\n\n\n\n\n\nJul 18, 2022\n\n\nTristan O’Malley\n\n\n\n\n\n\nNo matching items"
+    "text": "code\n\n\n\n\n\n\n\n\n\n\n\nAug 4, 2022\n\n\nVincenzo Palazeti\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\ncode\n\n\n\n\n\n\n\n\n\n\n\nAug 4, 2022\n\n\nVincenzo Palazeti\n\n\n\n\n\n\n  \n\n\n\n\n\n\n\n\n\n\nnews\n\n\n\n\n\n\n\n\n\n\n\nJul 18, 2022\n\n\nTristan O’Malley\n\n\n\n\n\n\nNo matching items"
   },
   {
     "objectID": "about.html",

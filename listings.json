@@ -3,6 +3,7 @@
     "listing": "/index.html",
     "items": [
       "/posts/code-snippits/index.html",
+      "/posts/leaflet/index.html",
       "/posts/welcome/index.html"
     ]
   }
