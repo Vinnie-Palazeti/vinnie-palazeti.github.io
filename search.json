@@ -1,19 +1,5 @@
 [
   {
-    "objectID": "posts/code-snippits/index.html",
-    "href": "posts/code-snippits/index.html",
-    "title": "Code Snippits",
-    "section": "",
-    "text": "import pandas as pd\n\ndata = pd.DataFrame(\n  {\n    \"numbers\": range(1,6)\n  }\n)\n\ndata.head()\n\n\n\n\n\n  \n    \n      \n      numbers\n    \n  \n  \n    \n      0\n      1\n    \n    \n      1\n      2\n    \n    \n      2\n      3\n    \n    \n      3\n      4\n    \n    \n      4\n      5"
-  },
-  {
-    "objectID": "posts/code-snippits-2/index.html",
-    "href": "posts/code-snippits-2/index.html",
-    "title": "Code Snippits 2",
-    "section": "",
-    "text": "import pandas as pd\n\ndata = pd.DataFrame(\n  {\n    \"numbers\": range(1,6)\n  }\n)\n\ndata.head()\n\n\n\n\n\n  \n    \n      \n      numbers\n    \n  \n  \n    \n      0\n      1\n    \n    \n      1\n      2\n    \n    \n      2\n      3\n    \n    \n      3\n      4\n    \n    \n      4\n      5"
-  },
-  {
     "objectID": "posts/welcome/index.html",
     "href": "posts/welcome/index.html",
     "title": "Welcome To My Blog",
@@ -21,25 +7,11 @@
     "text": "Since this post doesn’t specify an explicit image, the first image in the post will be used in the listing page of posts."
   },
   {
-    "objectID": "posts/leaflet/index.html",
-    "href": "posts/leaflet/index.html",
-    "title": "leaflet",
-    "section": "",
-    "text": "My goal is to create geojsons from a Postgis database.\n\n\n\n\n\n\n\nThings to keep in mind:"
-  },
-  {
-    "objectID": "posts/leaflet_r/index.html",
-    "href": "posts/leaflet_r/index.html",
-    "title": "leaflet",
-    "section": "",
-    "text": "library(leaflet)\n\nWarning: package 'leaflet' was built under R version 4.1.2\n\nleaflet() %>%\n  addTiles() %>%  # Add default OpenStreetMap map tiles\n  addMarkers(lng=-86.15, lat=39.78, popup=\"Circle City\")"
-  },
-  {
     "objectID": "index.html",
     "href": "index.html",
     "title": "myblog",
     "section": "",
-    "text": "code\n\n\n\n\n\n\n\n\n\n\n\nAug 4, 2022\n\n\nVincenzo Palazeti\n\n\n\n\n\n\n  \n\n\n\n\n\n\n\n\n\n\ncode\n\n\n\n\n\n\n\n\n\n\n\nAug 4, 2022\n\n\nVincenzo Palazeti\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\ncode\n\n\n\n\n\n\n\n\n\n\n\nAug 4, 2022\n\n\nVincenzo Palazeti\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\ncode\n\n\n\n\n\n\n\n\n\n\n\nAug 4, 2022\n\n\nVincenzo Palazeti\n\n\n\n\n\n\n  \n\n\n\n\n\n\n\n\n\n\nnews\n\n\n\n\n\n\n\n\n\n\n\nJul 18, 2022\n\n\nTristan O’Malley\n\n\n\n\n\n\nNo matching items"
+    "text": "news\n\n\n\n\n\n\n\n\n\n\n\nJul 18, 2022\n\n\nTristan O’Malley\n\n\n\n\n\n\nNo matching items"
   },
   {
     "objectID": "about.html",

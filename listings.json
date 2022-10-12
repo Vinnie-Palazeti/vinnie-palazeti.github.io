@@ -2,10 +2,6 @@
   {
     "listing": "/index.html",
     "items": [
-      "/posts/code-snippits/index.html",
-      "/posts/code-snippits-2/index.html",
-      "/posts/leaflet/index.html",
-      "/posts/leaflet_r/index.html",
       "/posts/welcome/index.html"
     ]
   }
