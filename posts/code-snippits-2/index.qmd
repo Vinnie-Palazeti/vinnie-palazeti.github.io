@@ -1,0 +1,22 @@
+---
+title: "Code Snippits 2"
+author: "Vincenzo Palazeti"
+date: "2022-08-04"
+categories: [code]
+image: "image.jpg"
+---
+
+## Python
+
+```{python}
+import pandas as pd
+
+data = pd.DataFrame(
+  {
+    "numbers": range(1,6)
+  }
+)
+
+data.head()
+
+```
