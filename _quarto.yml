@@ -2,10 +2,11 @@ project:
   type: website
 
 website:
-  title: "myblog"
+  title: "Vincenzo Palazeti"
   navbar:
     right:
-      - about.qmd
+      # - about.qmd
+      - posts.qmd
       - icon: github
         href: https://github.com/
       - icon: twitter
@@ -14,6 +15,3 @@ format:
   html:
     theme: cosmo
     css: styles.css
-
-
-

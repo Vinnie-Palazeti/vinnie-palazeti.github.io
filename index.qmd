@@ -1,7 +1,10 @@
 ---
-title: "Vincenzo Palazeti"
 page-layout: full
 title-block-banner: true
 ---
 
-# Hi, I'm Vincenzo Palazeti
+# Hi, I'm Vincenzo Palazeti.
+
+This is my landing page.
+
+I hope it doesn't stink.
