@@ -1,5 +1,12 @@
 [
   {
+    "objectID": "resume.html",
+    "href": "resume.html",
+    "title": "Vincenzo Palazeti",
+    "section": "",
+    "text": "put resume here"
+  },
+  {
     "objectID": "posts/welcome/index.html",
     "href": "posts/welcome/index.html",
     "title": "Welcome To My Blog",
@@ -11,7 +18,7 @@
     "href": "index.html",
     "title": "Vincenzo Palazeti",
     "section": "",
-    "text": "This is my landing page.\nI hope it doesn’t stink."
+    "text": "education\n\n\nGraduation Cap MS in Applied Statistics, 2020\n\n\nUniversity of Loyola Chicago\n\n\nGraduation Cap BS in Professional Selling, 2017\n\n\nBall State University\n\n\n\n\n\nexperience\nput experience here!"
   },
   {
     "objectID": "about.html",
