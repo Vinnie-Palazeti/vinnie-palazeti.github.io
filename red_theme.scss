@@ -4,9 +4,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat&family=Nunito:wght@300&family=Roboto+Mono:wght@300&display=swap');
 
 // Colors
-$light-sage-green: #D1D9CE;
+// $light-sage-green: #D1D9CE;
 $light-golden-gate-orange: #BD2A2A;
-$dark-sage-green: #98A08D;
+// $dark-sage-green: #98A08D;
 $dark-ruby-red: #9B111E;
 $cream: #FDFBF7;
 $gray: #64605f;
@@ -38,7 +38,7 @@ $code-block-bg: $cream;
 h1, h2, h3, h4, h5, h6 {
   letter-spacing: 5px;
   font-weight: 700;
-  color: $gray;
+  color: $cream; // changed from grey
 }
 
 h3 {

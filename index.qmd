@@ -18,7 +18,6 @@ about:
       href: mailto:vinnie.palazeti@indystats.com
 ---
 
-
 ### hi there!
 
 <p class="topbr">I'm Vinnie. </p>

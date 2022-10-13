@@ -1,6 +1,8 @@
 project:
   type: website
-
+# Notes: need to flip the color scheme
+# creme colored with red highlights
+# or just change the main font color to creme?
 website:
   title: "Vincenzo Palazeti"
   navbar:
