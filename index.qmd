@@ -1,10 +1,43 @@
 ---
-page-layout: full
-title-block-banner: true
+title: "Vincenzo Palazeti"
+# image: images/sam.jpg
+about:
+  template: trestles
+  links:
+    - icon: linkedin
+      text: LinkedIn
+      href: https://www.linkedin.com/in/vicenzo-palazeti/
+    - icon: twitter
+      text: Twitter
+      href: https://twitter.com/
+    - icon: github
+      text: GitHub
+      href: https://github.com/vinnie-palazeti
+    - icon: envelope
+      text: Email
+      href: mailto:vinnie.palazeti@indystats.com
 ---
 
-# Hi, I'm Vincenzo Palazeti.
 
-This is my landing page.
+### hi there!
 
-I hope it doesn't stink.
+<p class="topbr">I'm Vinnie. </p>
+
+-----------------------------------------------------------------------------------------------------------------------------------
+
+### education
+
+<div class="topbr">
+<p class="custom-subtitle">`r fontawesome::fa("graduation-cap", fill = "#98A08D", a11y = "sem")` **MS in Applied Statistics, 2020**</p>
+<p class="custom-subtitle2">University of Loyola Chicago</p>
+
+<p class="custom-subtitle">`r fontawesome::fa("graduation-cap", fill = "#98A08D", a11y = "sem")` **BS in Professional Selling, 2017**</p>
+<p class="custom-subtitle2">Ball State University</p>
+</div>
+
+
+-----------------------------------------------------------------------------------------------------------------------------------
+
+### experience
+
+put experience here!

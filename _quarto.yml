@@ -5,13 +5,31 @@ website:
   title: "Vincenzo Palazeti"
   navbar:
     right:
-      # - about.qmd
+      - href: index.qmd
+        text: home
+      - about.qmd
+      - resume.qmd
       - posts.qmd
       - icon: github
-        href: https://github.com/
+        href: https://github.com/vinnie-palazeti
       - icon: twitter
         href: https://twitter.com
+  page-footer:
+    background: light
+    left:
+      - "Copyright 2022, Vincenzo Palazeti"
+    right:
+      - icon: github
+        href: https://github.com/vinnie-palazeti
+      - icon: twitter
+        href: https://twitter.com
+  reader-mode: true
+
 format:
   html:
-    theme: cosmo
-    css: styles.css
+    page-layout: full
+    theme:
+      - red_theme.scss
+    # css: styles.css
+    mainfont: Nunito
+    toc: true
