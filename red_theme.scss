@@ -85,8 +85,8 @@ body {
 
 .button-styling {
   background: $light-golden-gate-orange;
-  border-color: $cream;
-  color: $cream;
+  border-color: $light-golden-gate-orange;
+  color: $light-golden-gate-orange;
   border-radius: 0.6rem;
   font-size: 25px;
   letter-spacing: 3px;
@@ -98,7 +98,7 @@ body {
 }
 
 .button-styling:hover {
-  background-color: $cream;
+  background-color: $light-golden-gate-orange;
 }
 
 /* CLASS SELECTORS (copied from inspecting site -- Quarto defined?) */
@@ -121,7 +121,7 @@ body {
 }
 
 .card {
-  background-color: $cream;
+  background-color: $light-golden-gate-orange;
   border-radius: 5.25em;
 }
 
