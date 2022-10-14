@@ -13,23 +13,30 @@ $gray: #64605f;
 $light-gray: #949799;
 $purple: #AE8BD1;
 
+// // Base document colors
+// $navbar-bg: $cream;
+// $navbar-fg: $dark-ruby-red;
+// $navbar-hl: $purple;
+// $body-bg: $light-golden-gate-orange;
+// $body-color: $gray;
+// $footer-bg: $cream;
+// $link-color: $purple;
+
 // Base document colors
-$navbar-bg: $cream;
-// $navbar-fg: $dark-sage-green;
-$navbar-fg: $dark-ruby-red;
+$navbar-bg: $dark-ruby-red;
+$navbar-fg: $cream;
 $navbar-hl: $purple;
-// $body-bg: $light-sage-green;
-$body-bg: $light-golden-gate-orange;
-$body-color: $gray;
-$footer-bg: $cream;
+$body-bg: $cream;
+$body-color: $cream;
+$footer-bg: $dark-ruby-red;
 $link-color: $purple;
 
 // Inline code
-$code-bg: $cream;
+$code-bg: $light-golden-gate-orange; // was cream
 $code-color: $purple;
 
 // Code blocks
-$code-block-bg: $cream;
+$code-block-bg: $light-golden-gate-orange; // was cream
 
 /*-- scss:rules --*/
 
@@ -38,7 +45,7 @@ $code-block-bg: $cream;
 h1, h2, h3, h4, h5, h6 {
   letter-spacing: 5px;
   font-weight: 700;
-  color: $cream; // changed from grey
+  color: $dark-ruby-red; // changed from grey
 }
 
 h3 {
@@ -78,8 +85,8 @@ body {
 
 .button-styling {
   background: $light-golden-gate-orange;
-  border-color: $gray;
-  color: $gray;
+  border-color: $cream;
+  color: $cream;
   border-radius: 0.6rem;
   font-size: 25px;
   letter-spacing: 3px;
