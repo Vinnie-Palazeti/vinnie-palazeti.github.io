@@ -18,7 +18,7 @@
     "href": "about.html",
     "title": "about",
     "section": "",
-    "text": "This is Kevin.\n\n\n\n\n\nkevin\n\n\n\n\ncolumn margin Kevin\n\n\n\n\n\n\n\nkevin\n\n\n\n\nHattie & I picked him up in September. He was 10 lbs. A month later he was 21 lbs. Kevin is a large guy (and a very good boy).\n\n\n\n\n\nHattie, Kevin, & Me\n\n\n\n\nThis past summer I was invited to play in the Indy City Futbol league. It’s a soccer league with teams corresponding to the different Indianapolis neighborhoods. I had a ton of fun."
+    "text": "This is Kevin. # # {r} # #| echo: false # #| fig-cap: \"kevin\" # #| fig-align: center # #| fig-width: 2 # #| fig-height: 1 # knitr::include_graphics(\"images/kevin.jpg\") #\ncolumn margin Kevin\n\n\n\n\n\n\n\nkevin\n\n\n\n\nHattie & I picked him up in September. He was 10 lbs. A month later he was 21 lbs. Kevin is a large guy (and a very good boy).\n\n\n\n\n{r} # #| echo: false # #| fig-cap: \"Hattie, Kevin, & Me\" # #| fig-align: center # #| fig-width: 2 # #| fig-height: 1 # knitr::include_graphics(\"images/hattie_kevin_me.jpg\") #\n\n\n\nThis past summer I was invited to play in the Indy City Futbol league. It’s a soccer league with teams corresponding to the different Indianapolis neighborhoods. I had a ton of fun."
   },
   {
     "objectID": "posts.html",
