@@ -1,12 +1,5 @@
 ---
 title: "about"
-format:
-  html:
-    fig-width: 2
-    fig-height: 1
-  pdf:
-    fig-width: 2
-    fig-height: 1
 ---
 
 
@@ -21,6 +14,19 @@ This is Kevin.
 #| fig-align: center
 knitr::include_graphics("images/kevin.jpg")
 ```
+
+column margin Kevin
+
+:::{.column-margin}
+```{r}
+#| echo: false
+#| fig-cap: "kevin"
+#| fig-align: center
+#| fig-width: 2
+#| fig-height: 1
+knitr::include_graphics("images/kevin.jpg")
+```
+:::
 
 Hattie & I picked him up in September. He was 10 lbs. A month later he was 21 lbs. Kevin is a large guy (and a very good boy).
 
