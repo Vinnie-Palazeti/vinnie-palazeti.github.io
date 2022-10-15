@@ -24,6 +24,9 @@ Hattie & I picked him up in September. He was 10 lbs. A month later he was 21 lb
 ```{r}
 #| echo: false
 #| fig-cap: "Hattie, Kevin, & Me"
+#| fig-align: center
+#| fig-width: 5
+#| fig-height: 3
 knitr::include_graphics("images/hattie_kevin_me.jpg")
 ```
 
