@@ -7,13 +7,13 @@ I've recently grown a mustache. To many folks suprise, this was Hattie's idea! I
 
 This is Kevin.
 
-:::{.column-body-outset}
-```{r, out.width = "50%", out.height = "50%"}
+
+```{r}
 #| echo: false
+#| out-width: 25%
+#| out-height: 25%
 knitr::include_graphics("images/kevin.jpg")
 ```
-:::
-
 
 Hattie & I picked him up in September. He was 10 lbs. A month later he was 21 lbs. Kevin is a large guy (and a very good boy).
 
