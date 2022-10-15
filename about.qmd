@@ -1,33 +1,85 @@
 ---
 title: "about"
-format: html
+subtitle: here's some stuff about me
 ---
 
+\
+## `r fontawesome::fa("map", fill = "#9B111E", a11y = "sem")` Indy
 
-I've recently grown a mustache. To many folks suprise, this was Hattie's idea! I always thought my facial hair was sub-par, but I get compliments all the time. So, if you're considering a mustache I say go for it!
+I live in Indianpolis, Indiana. It's a great city.
+
+```{r}
+#| echo: false
+
+library(leaflet)
+latitude = 39.7684
+longitude = -86.1581
+
+leaflet(height=2000, width=2000) %>%
+  setView(
+    lng = longitude,
+    lat = latitude,
+    zoom = 12) %>%
+  addTiles() %>%
+  addMarkers(
+    lng=longitude,
+    lat=latitude,
+    popup="Indianapolis!"
+    )
+
+```
+
+\
+\
 
 
-## Kevin!!!!
+## `r fontawesome::fa("dog", fill = "#9B111E", a11y = "sem")` kevin
 
 ::: {.grid}
 
 ::: {.g-col-4}
 ```{r}
 #| echo: false
-#| out-width: 25%
-#| out-height: 25%
+#| out-width: 100%
+#| out-height: 100%
 knitr::include_graphics("images/kevin.jpg")
 ```
 :::
 
 ::: {.g-col-8}
-Hattie & I picked him up in September. He was 10 lbs. A month later he was 21 lbs. Kevin is a large guy (and a very good boy).
+Hattie & I picked him up in September. He was 10 lbs. A month later he was 21 lbs. \
+\
+\
+Kevin is a large guy (and a very good boy).
 :::
 
 :::
 
 
 
+## `r fontawesome::fa("football", fill = "#9B111E", a11y = "sem")` kevin
 
+::: {.grid}
 
-This past summer I was invited to play in the Indy City Futbol league. It's a soccer league with teams corresponding to the different Indianapolis neighborhoods. I had a ton of fun.
+::: {.g-col-4}
+```{r}
+#| echo: false
+#| out-width: 80%
+#| out-height: 70%
+knitr::include_graphics("images/Ball_State_Cardinals_logo.svg.png")
+```
+:::
+
+::: {.g-col-8}
+I played football at Ball State University in Muncie, Indiana. It was a ton of fun. I was elected a captain by my teammates, which was a great accomplishment.
+\
+\
+I loved living in Muncie. Most folks find this strange!
+\
+\
+For a while, I was incredibly glad to be done playing. I'm now ~5 years out and am beginning to miss it.
+\
+..or maybe I am just forgetting the injuries...
+:::
+
+:::

@@ -1,8 +1,6 @@
 project:
   type: website
-# Notes: need to flip the color scheme
-# creme colored with red highlights
-# or just change the main font color to creme?
+
 website:
   title: "Vincenzo Palazeti"
   navbar:
@@ -32,6 +30,5 @@ format:
     page-layout: full
     theme:
       - red_theme.scss
-    # css: styles.css
     mainfont: Nunito
     toc: true
