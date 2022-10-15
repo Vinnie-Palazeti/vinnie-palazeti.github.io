@@ -6,40 +6,12 @@ I've recently grown a mustache. To many folks suprise, this was Hattie's idea! I
 
 
 This is Kevin.
-#
-# ```{r}
-# #| echo: false
-# #| fig-cap: "kevin"
-# #| fig-align: center
-# #| fig-width: 2
-# #| fig-height: 1
-# knitr::include_graphics("images/kevin.jpg")
-# ```
 
-column margin Kevin
+![]("images/kevin.jpg"){fig-align="center" height="200"}
 
-:::{.column-margin}
-```{r}
-#| echo: false
-#| fig-cap: "kevin"
-#| fig-align: center
-#| fig-width: 8
-#| fig-height: 3
-knitr::include_graphics("images/kevin.jpg")
-```
-:::
+
 
 Hattie & I picked him up in September. He was 10 lbs. A month later he was 21 lbs. Kevin is a large guy (and a very good boy).
 
-#
-# ```{r}
-# #| echo: false
-# #| fig-cap: "Hattie, Kevin, & Me"
-# #| fig-align: center
-# #| fig-width: 2
-# #| fig-height: 1
-# knitr::include_graphics("images/hattie_kevin_me.jpg")
-# ```
-#
 
 This past summer I was invited to play in the Indy City Futbol league. It's a soccer league with teams corresponding to the different Indianapolis neighborhoods. I had a ton of fun.
