@@ -1,20 +1,24 @@
 ---
 title: "about"
-image: profile.jpg
+format:
+  html:
+    fig-width: 8
+    fig-height: 6
+  pdf:
+    fig-width: 7
+    fig-height: 5
 ---
-
-
 
 
 I've recently grown a mustache. To many folks suprise, this was Hattie's idea! I always thought my facial hair was sub-par, but I get compliments all the time. So, if you're considering a mustache I say go for it!
 
 
-
 This is Kevin.
 
-```{r, fig.width = 2, fig.height = 1}
+```{r, out.width = "25%"}
 #| echo: false
 #| fig-cap: "kevin"
+#| fig-align: center
 knitr::include_graphics("images/kevin.jpg")
 ```
 
@@ -25,8 +29,6 @@ Hattie & I picked him up in September. He was 10 lbs. A month later he was 21 lb
 #| echo: false
 #| fig-cap: "Hattie, Kevin, & Me"
 #| fig-align: center
-#| fig-width: 2
-#| fig-height: 1
 knitr::include_graphics("images/hattie_kevin_me.jpg")
 ```
 
