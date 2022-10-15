@@ -15,6 +15,8 @@ This is Kevin.
 ```{r}
 #| echo: false
 #| fig-cap: "kevin"
+#| fig-width: 2
+#| fig-height: 1
 knitr::include_graphics("images/kevin.jpg")
 ```
 
@@ -25,8 +27,8 @@ Hattie & I picked him up in September. He was 10 lbs. A month later he was 21 lb
 #| echo: false
 #| fig-cap: "Hattie, Kevin, & Me"
 #| fig-align: center
-#| fig-width: 5
-#| fig-height: 3
+#| fig-width: 2
+#| fig-height: 1
 knitr::include_graphics("images/hattie_kevin_me.jpg")
 ```
 
