@@ -1,6 +1,5 @@
 ---
 title: "about"
-format: pdf
 ---
 
 I've recently grown a mustache. To many folks suprise, this was Hattie's idea! I always thought my facial hair was sub-par, but I get compliments all the time. So, if you're considering a mustache I say go for it!
