@@ -2,11 +2,11 @@
 title: "about"
 format:
   html:
-    fig-width: 8
-    fig-height: 6
+    fig-width: 2
+    fig-height: 1
   pdf:
-    fig-width: 7
-    fig-height: 5
+    fig-width: 2
+    fig-height: 1
 ---
 
 
@@ -15,7 +15,7 @@ I've recently grown a mustache. To many folks suprise, this was Hattie's idea! I
 
 This is Kevin.
 
-```{r, out.width = "25%"}
+```{r}
 #| echo: false
 #| fig-cap: "kevin"
 #| fig-align: center
