@@ -7,7 +7,8 @@ I've recently grown a mustache. To many folks suprise, this was Hattie's idea! I
 
 This is Kevin.
 
-```{r, fig.width=12, fig.height = 5}
+```{r, out.width = "50%", out.height = "50%"}
+#| echo: false
 knitr::include_graphics("images/kevin.jpg")
 ```
 
