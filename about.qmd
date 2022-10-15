@@ -10,6 +10,7 @@ This is Kevin.
 
 ```{r}
 #| echo: false
+#| out-align: center
 #| out-width: 25%
 #| out-height: 25%
 knitr::include_graphics("images/kevin.jpg")
