@@ -1,12 +1,5 @@
 [
   {
-    "objectID": "posts/welcome/index.html",
-    "href": "posts/welcome/index.html",
-    "title": "Welcome To My Blog",
-    "section": "",
-    "text": "Since this post doesn’t specify an explicit image, the first image in the post will be used in the listing page of posts."
-  },
-  {
     "objectID": "index.html",
     "href": "index.html",
     "title": "Vincenzo Palazeti",
@@ -14,24 +7,24 @@
     "text": "education\n\n\nGraduation Cap MS in Applied Statistics, 2020\n\n\nUniversity of Loyola Chicago\n\n\nGraduation Cap BS in Professional Selling, 2017\n\n\nBall State University\n\n\n\n\n\nexperience\nput experience here!"
   },
   {
-    "objectID": "about.html",
-    "href": "about.html",
+    "objectID": "about.html#indy",
+    "href": "about.html#indy",
     "title": "about",
-    "section": "",
-    "text": "I live in Indianpolis, Indiana."
+    "section": "Map Indy",
+    "text": "Map Indy\nI live in Indianpolis, Indiana."
   },
   {
     "objectID": "about.html#kevin",
     "href": "about.html#kevin",
     "title": "about",
-    "section": "Kevin!!!!",
-    "text": "Kevin!!!!\n\n\n\n\n\n\n\n\n\nHattie & I picked him up in September. He was 10 lbs. A month later he was 21 lbs.\n\n\nKevin is a large guy (and a very good boy).\n\n\nI’ve recently grown a mustache. To many folks suprise, this was Hattie’s idea! I always thought my facial hair was sub-par, but I get compliments all the time. So, if you’re considering a mustache I say go for it!\nThis past summer I was invited to play in the Indy City Futbol league. It’s a soccer league with teams corresponding to the different Indianapolis neighborhoods. I had a ton of fun."
+    "section": "Dog kevin",
+    "text": "Dog kevin\n\n\n\n\n\n\n\n\n\nHattie & I picked him up in September. He was 10 lbs. A month later he was 21 lbs.\n\n\nKevin is a large guy (and a very good boy).\n\n\nI’ve recently grown a mustache. To many folks suprise, this was Hattie’s idea! I always thought my facial hair was sub-par, but I get compliments all the time. So, if you’re considering a mustache I say go for it!\nThis past summer I was invited to play in the Indy City Futbol league. It’s a soccer league with teams corresponding to the different Indianapolis neighborhoods. I had a ton of fun."
   },
   {
     "objectID": "posts.html",
     "href": "posts.html",
     "title": "posts",
     "section": "",
-    "text": "news\n\n\n\n\n\n\n\n\n\n\n\nJul 18, 2022\n\n\nTristan O’Malley\n\n\n\n\n\n\nNo matching items"
+    "text": "misc\n\n\n\n\n\n\n\n\n\n\n\nOct 1, 2022\n\n\n\n\n\n\nNo matching items"
   }
 ]
