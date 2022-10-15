@@ -12,11 +12,9 @@ I've recently grown a mustache. To many folks suprise, this was Hattie's idea! I
 
 This is Kevin.
 
-```{r}
+```{r, fig.width = 2, fig.height = 1}
 #| echo: false
 #| fig-cap: "kevin"
-#| fig-width: 2
-#| fig-height: 1
 knitr::include_graphics("images/kevin.jpg")
 ```
 
