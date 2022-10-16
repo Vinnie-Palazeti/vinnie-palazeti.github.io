@@ -3,13 +3,13 @@ title: "about"
 subtitle: "a few things about me"
 ---
 
+## `r fontawesome::fa("map", fill = "#9B111E", a11y = "sem")` Indy
+
 :::{.column-margin}
 ```{r}
 #| echo: false
 ```
 :::
-
-## `r fontawesome::fa("map", fill = "#9B111E", a11y = "sem")` Indy
 
 I live in Indianpolis, Indiana. It's a great city with an extremely relaxed vibe.
 
@@ -20,7 +20,7 @@ library(leaflet)
 latitude = 39.7684
 longitude = -86.1581
 
-leaflet(height=2000, width=2000) %>%
+leaflet(height=1000, width=1000) %>%
   setView(
     lng = longitude,
     lat = latitude,
@@ -33,10 +33,30 @@ leaflet(height=2000, width=2000) %>%
     )
 
 ```
+\
+
+::: {.grid}
+
+::: {.g-col-4}
+```{r}
+#| echo: false
+#| out-width: 100%
+#| out-height: 100%
+knitr::include_graphics("images/hattie_me.jpg")
+```
+:::
+
+::: {.g-col-8}
+I live here with my partner Hattie. We both really enjoy living downtown.
+\
+\
+Walking to resturants, coffee shops, movie theaters, etc. is unbeatable. At this point, I can't see myself moving out of the city.
+:::
+
+:::
 
 \
 \
-
 
 ## `r fontawesome::fa("dog", fill = "#9B111E", a11y = "sem")` kevin
 
@@ -68,14 +88,35 @@ Kevin is a large guy (and a very good boy).
 :::
 
 
+::: {.grid}
+
+::: {.g-col-4}
+This is my first pet ever. Puppies are no joke. Training Kevin has been an arduous process.  \
+\
+\
+Though, we are going to have fun along the way.
+:::
+
+::: {.g-col-8}
+```{r}
+#| echo: false
+#| out-width: 80%
+#| out-height: 80%
+knitr::include_graphics("images/hattie_kevin_me.jpg")
+```
+:::
+
+:::
+
+
+## `r fontawesome::fa("football", fill = "#9B111E", a11y = "sem")` ball state
+
+
 :::{.column-margin}
 ```{r}
 #| echo: false
 ```
 :::
-
-
-## `r fontawesome::fa("football", fill = "#9B111E", a11y = "sem")` ball state
 
 ::: {.grid}
 
