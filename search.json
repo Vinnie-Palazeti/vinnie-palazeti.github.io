@@ -1,17 +1,24 @@
 [
   {
+    "objectID": "posts/interests/index.html",
+    "href": "posts/interests/index.html",
+    "title": "Place Holder",
+    "section": "",
+    "text": "Let’s hope Quarto’s ease assists in finding time to fill this page up"
+  },
+  {
     "objectID": "index.html",
     "href": "index.html",
     "title": "Vincenzo Palazeti",
     "section": "",
-    "text": "education\n\n\nGraduation Cap MS in Applied Statistics, 2020\n\n\nUniversity of Loyola Chicago\n\n\nGraduation Cap BS in Professional Selling, 2017\n\n\nBall State University\n\n\n\n\n\nexperience\nput experience here!"
+    "text": "education\n\n\nGraduation Cap MS in Applied Statistics, 2020\n\n\nUniversity of Loyola Chicago\n\n\nGraduation Cap BS in Professional Selling, 2017\n\n\nBall State University\n\n\n\n\n\nexperience\n\n\nBar Chart Lead Data Scientist, 2022-present\n\n\nAlphaPeak\n\n\nBar Chart Data Scientist, 2021-2022\n\n\nSports Betting Innovative Analytics"
   },
   {
-    "objectID": "about.html#indy",
-    "href": "about.html#indy",
+    "objectID": "about.html",
+    "href": "about.html",
     "title": "about",
-    "section": "Map Indy",
-    "text": "Map Indy\nI live in Indianpolis, Indiana. It’s a great city."
+    "section": "",
+    "text": "I live in Indianpolis, Indiana. It’s a great city with an extremely relaxed vibe."
   },
   {
     "objectID": "about.html#kevin",
