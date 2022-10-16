@@ -1,5 +1,6 @@
 ---
-title: "Interests"
+title: "Place Holder"
 date: "2022-10-01"
 categories: [misc]
 ---
+Let's hope Quarto's ease assists in finding time to fill this page up

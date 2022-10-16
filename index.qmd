@@ -22,23 +22,31 @@ about:
 
 ### hi there!
 
-<p class="topbr">I'm Vinnie. </p>
+<p class="topbr">I'm Vinnie. I am a Lead Data Scientist at AlphaPeak. Prior to this, I was employed as a Data Scientist at Sports Betting Innotive Analytics (SBIA). I have extensive experience competing in the sports wager startup space, building production grade python software, solving novel daily problems, and evaluating diverse statistical models. </p>
 
 -----------------------------------------------------------------------------------------------------------------------------------
 
 ### education
 
 <div class="topbr">
-<p class="custom-subtitle">`r fontawesome::fa("graduation-cap", fill = "#98A08D", a11y = "sem")` **MS in Applied Statistics, 2020**</p>
+<p class="custom-subtitle">`r fontawesome::fa("graduation-cap", fill = "#9B111E", a11y = "sem")` **MS in Applied Statistics, 2020**</p>
 <p class="custom-subtitle2">University of Loyola Chicago</p>
 
-<p class="custom-subtitle">`r fontawesome::fa("graduation-cap", fill = "#98A08D", a11y = "sem")` **BS in Professional Selling, 2017**</p>
+<p class="custom-subtitle">`r fontawesome::fa("graduation-cap", fill = "#9B111E", a11y = "sem")` **BS in Professional Selling, 2017**</p>
 <p class="custom-subtitle2">Ball State University</p>
 </div>
-
 
 -----------------------------------------------------------------------------------------------------------------------------------
 
 ### experience
 
-put experience here!
+<div class="topbr">
+<p class="custom-subtitle">`r fontawesome::fa("chart-bar", fill = "#9B111E", a11y = "sem")` **Lead Data Scientist, 2022-present**</p>
+<p class="custom-subtitle2">AlphaPeak</p>
+
+<p class="custom-subtitle">`r fontawesome::fa("chart-line", fill = "#9B111E", a11y = "sem")` **Data Scientist, 2021-2022**</p>
+<p class="custom-subtitle2">Sports Betting Innovative Analytics</p>
+
+<p class="custom-subtitle">`r fontawesome::fa("chalkboard-user", fill = "#9B111E", a11y = "sem")` **Statistician, 2020-2021**</p>
+<p class="custom-subtitle2">Center for Criminal Justice Research</p>
+</div>

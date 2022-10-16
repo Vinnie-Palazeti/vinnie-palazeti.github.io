@@ -1,12 +1,17 @@
 ---
 title: "about"
-subtitle: here's some stuff about me
+subtitle: "a few things about me"
 ---
 
-\
+:::{.column-margin}
+```{r}
+#| echo: false
+```
+:::
+
 ## `r fontawesome::fa("map", fill = "#9B111E", a11y = "sem")` Indy
 
-I live in Indianpolis, Indiana. It's a great city.
+I live in Indianpolis, Indiana. It's a great city with an extremely relaxed vibe.
 
 ```{r}
 #| echo: false
@@ -35,6 +40,13 @@ leaflet(height=2000, width=2000) %>%
 
 ## `r fontawesome::fa("dog", fill = "#9B111E", a11y = "sem")` kevin
 
+:::{.column-margin}
+```{r}
+#| echo: false
+```
+:::
+
+
 ::: {.grid}
 
 ::: {.g-col-4}
@@ -56,8 +68,14 @@ Kevin is a large guy (and a very good boy).
 :::
 
 
+:::{.column-margin}
+```{r}
+#| echo: false
+```
+:::
 
-## `r fontawesome::fa("football", fill = "#9B111E", a11y = "sem")` kevin
+
+## `r fontawesome::fa("football", fill = "#9B111E", a11y = "sem")` ball state
 
 ::: {.grid}
 
@@ -71,13 +89,14 @@ knitr::include_graphics("images/Ball_State_Cardinals_logo.svg.png")
 :::
 
 ::: {.g-col-8}
-I played football at Ball State University in Muncie, Indiana. It was a ton of fun. I was elected a captain by my teammates, which was a great accomplishment.
+I played football at Ball State University in Muncie, Indiana. I had a ton of fun. Seinor year, my teammates elected me a captain, which is an accomplishment I hold very dearly.
 \
 \
 I loved living in Muncie. Most folks find this strange!
 \
 \
-For a while, I was incredibly glad to be done playing. I'm now ~5 years out and am beginning to miss it.
+For a while, I was incredibly glad to be finished playing. I'm now ~5 years out and am beginning to miss it.
+\
 \
 ..or maybe I am just forgetting the injuries...
 :::

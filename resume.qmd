@@ -1,5 +1,0 @@
----
-title: "resume"
-page-layout: full
-title-block-banner: true
----
