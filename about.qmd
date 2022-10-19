@@ -11,7 +11,7 @@ subtitle: "a few things about me"
 ```
 :::
 
-I live in Indianpolis, Indiana. It's a great city with an extremely relaxed vibe.
+I live in Indianapolis, Indiana. It's a great city with an extremely relaxed vibe.
 
 ```{r}
 #| echo: false
@@ -42,7 +42,8 @@ leaflet(height=1000, width=1000) %>%
 #| echo: false
 #| out-width: 100%
 #| out-height: 100%
-knitr::include_graphics("images/hattie_me.jpg")
+#| border-radius: 50%
+knitr::include_graphics("images/hattie_me_selfie.jpg")
 ```
 :::
 
@@ -130,7 +131,7 @@ knitr::include_graphics("images/Ball_State_Cardinals_logo.svg.png")
 :::
 
 ::: {.g-col-8}
-I played football at Ball State University in Muncie, Indiana. I had a ton of fun. Seinor year, my teammates elected me a captain, which is an accomplishment I hold very dearly.
+I played football at Ball State University in Muncie, Indiana. I had a ton of fun. Senior year, my teammates elected me a captain, which is an accomplishment I hold very dearly.
 \
 \
 I loved living in Muncie. Most folks find this strange!

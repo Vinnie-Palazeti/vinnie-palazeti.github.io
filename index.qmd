@@ -22,7 +22,7 @@ about:
 
 ### hi there!
 
-<p class="topbr">I'm Vinnie. I am a Lead Data Scientist at AlphaPeak. Prior to this, I was employed as a Data Scientist at Sports Betting Innotive Analytics (SBIA). I have extensive experience competing in the sports betting startup space, building production grade python software, solving novel daily problems, and evaluating diverse statistical models. </p>
+<p class="topbr">I'm Vinnie. I am a Lead Data Scientist at AlphaPeak. Prior to this, I was employed as a Data Scientist at Sports Betting Innotive Analytics (SBIA). I have extensive experience competing in the sports betting startup space, building production grade python software, solving daily novel problems, and evaluating diverse statistical models. </p>
 
 -----------------------------------------------------------------------------------------------------------------------------------
 
