@@ -47,6 +47,6 @@ about:
 <p class="custom-subtitle">`r fontawesome::fa("chart-line", fill = "#9B111E", a11y = "sem")` **Data Scientist, 2021-2022**</p>
 <p class="custom-subtitle2">Sports Betting Innovative Analytics</p>
 
-<p class="custom-subtitle">`r fontawesome::fa("chalkboard-user", fill = "#9B111E", a11y = "sem")` **Statistician, 2020-2021**</p>
+<p class="custom-subtitle">`r fontawesome::fa("chalkboard-teacher", fill = "#9B111E", a11y = "sem")` **Statistician, 2020-2021**</p>
 <p class="custom-subtitle2">Center for Criminal Justice Research</p>
 </div>
