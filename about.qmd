@@ -1,0 +1,54 @@
+---
+title: "Vincenzo Palazeti"
+image: profile.jpg
+about:
+  template: trestles
+  image-shape: rounded
+  image-width: 16em
+  links:
+    - icon: linkedin
+      text: LinkedIn
+      href: https://linkedin.com
+    - icon: github
+      text: Github
+      href: https://github.com
+    - icon: github
+      text: Resume
+      href: resume.pdf
+---
+
+Hello! My name is Vincenzo Palazeti. Most people call me Vinnie.
+
+I am a Data Scientist at Vevo. 
+
+I have extensive experience competing in the sports betting startup space, building production grade python software, solving daily novel problems, and evaluating diverse statistical models. </p>
+
+
+
+## Experience
+
+---
+
+
+<p class="custom-title">{{< fa headphones >}}  **Data Scientist, 2023-Present**</p>
+<p class="custom-subtitle">Vevo</p>
+
+<p class="custom-title">{{< fa chart-bar >}}  **Data Scientist, 2022-2023**</p>
+<p class="custom-subtitle">AlphaPeak</p>
+
+<p class="custom-title"> {{< fa chart-line >}} **Data Scientist, 2020-2022**</p>
+<p class="custom-subtitle">Sports Betting Innovative Analytics</p>
+
+<p class="custom-title">{{< fa chalkboard-user >}}  **Statistician, 2019-2020**</p>
+<p class="custom-subtitle">Center for Criminal Justice Research</p>
+
+
+## Education
+
+---
+
+<p class="custom-title">{{< fa graduation-cap size="normalsize" >}}  **MS in Applied Statistics, 2020**</p>
+<p class="custom-subtitle">University of Loyola Chicago</p>
+
+<p class="custom-title">{{< fa graduation-cap >}}  **BS in Professional Selling, 2017**</p>
+<p class="custom-subtitle">Ball State University</p>

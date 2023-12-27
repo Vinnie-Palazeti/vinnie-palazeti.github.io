@@ -1,0 +1,17 @@
+/* css styles */
+
+.custom-title {
+    font-size: 22px;
+    margin-bottom: 0.15em;
+}
+  
+.custom-subtitle {
+    font-size: 20px;
+    font-style: italic;
+}
+
+.topbr {
+    display: block;
+    margin-top: 1em;
+}
+  

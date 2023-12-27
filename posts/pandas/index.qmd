@@ -1,0 +1,14 @@
+---
+title: 'Pandas'
+categories: ['code','dates', 'timeseries']
+---
+
+
+
+
+
+Grab all of the month names
+
+```python
+months = pd.date_range('2020-01-01','2020-12-31',freq='MS').map(lambda x: x.month_name())
+```

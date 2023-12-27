@@ -1,0 +1,85 @@
+---
+title: "Docker"
+date: "2023-12-02"
+categories: [news, code, analysis]
+
+---
+
+
+Two stage Dockerfile. Runner image is slim with only virtual environment. 
+
+```dockerfile
+FROM ubuntu:20.04 AS builder-image
+
+# avoid stuck build due to user prompt
+ARG DEBIAN_FRONTEND=noninteractive
+
+RUN apt-get update && \
+    apt-get install --no-install-recommends -y python3.9 python3.9-dev python3.9-venv python3-pip python3-wheel build-essential && \
+    apt-get clean && \
+    rm -rf /var/lib/apt/lists/*
+
+# create and activate virtual environment
+# using final folder name to avoid path issues with packages
+RUN python3.9 -m venv /home/myuser/venv
+ENV PATH="/home/myuser/venv/bin:$PATH"
+
+# install requirements
+COPY app/requirements.txt .
+RUN pip3 install --no-cache-dir wheel
+RUN pip3 install --no-cache-dir -r requirements.txt
+
+FROM ubuntu:20.04 AS runner-image
+RUN apt-get update && \
+    apt-get install --no-install-recommends -y python3.9 python3-venv && \
+    apt-get clean && \
+    rm -rf /var/lib/apt/lists/*
+
+RUN useradd --create-home myuser
+COPY --from=builder-image /home/myuser/venv /home/myuser/venv
+
+USER myuser
+RUN mkdir /home/myuser/code
+WORKDIR /home/myuser/code
+COPY app .
+
+# make sure all messages always reach console
+ENV PYTHONUNBUFFERED=1
+
+# activate virtual environment
+ENV VIRTUAL_ENV=/home/myuser/venv
+ENV PATH="/home/myuser/venv/bin:$PATH"
+```
+
+
+I've been told installing python manually is not worth the effort & nudged to use the official docker python images.
+
+This is good advice, because I have struggled with C package installs (specifically for LGBM).
+
+---
+
+Create a container & attach a volume to the image. This command opens the container in interactive mode, mounts the /app directory as a volumne, and links the port 8080.
+
+This is useful because changes to application, or whatever you are working on, are reflected inside of the docker container. 
+
+I have been using this with streamlit, but I believe it should work with jupyter. Linking to jupyter through a docker container is a pain, so maybe not. I'll have to check.
+
+```bash
+docker run -it --rm -v $(pwd)/app:/home/myuser/code -p 8080:8080 img_name
+```
+
+---
+
+If your environment requires variables you can pass them through with `--env-file`
+
+```zsh
+docker run --env-file .env-local 
+```
+
+With the format:
+
+```txt
+DS_BUCKET=XXXX
+AWS_ACCESS_KEY_ID_DEV=XXXX
+AWS_SECRET_ACCESS_KEY_DEV=XXXX
+```

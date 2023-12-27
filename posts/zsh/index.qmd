@@ -1,0 +1,12 @@
+---
+title: zsh
+date: '2023-02-01'
+---
+
+
+
+Look up past commands
+
+```zsh
+history | grep docker
+```

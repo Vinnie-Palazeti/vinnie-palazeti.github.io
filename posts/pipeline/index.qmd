@@ -1,0 +1,15 @@
+---
+title: Pipeline
+categories: [sklearn, Pipeline, ColumnTransformer]
+---
+
+Useful code relating to:
+
+```{python}
+import os
+os.envrion['Pipeline_python']
+
+```
+
+
+

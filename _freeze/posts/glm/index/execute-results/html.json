@@ -1,0 +1,15 @@
+{
+  "hash": "2effcd7b4a5fb0f5608551fd3285c33f",
+  "result": {
+    "engine": "knitr",
+    "markdown": "---\ntitle: GLM\ndate: \"2023-12-16\"\ncategories: [statistics, regression, log odds]\n---\n\n\n## CATE\n\nThe conditional average treatment effect\n\n$$ \n\\text{CATE} = \\mathbb{E}[\\text{Pr}(\\text{Y}_i = 1 \\ |\\ \\text{X}_i = 1) \\ - \\ \\text{Pr}(\\text{Y}_i = 1 \\ |\\ \\text{X}_i = 0) \\ | \\ \\text{Z}_i = z]\n$$\n\n\n::: {.cell}\n\n```{.r .cell-code}\nlibrary(data.table)\n\n# covariates\nX <- rbinom(1000,1,0.5)\nZ <- rbinom(1000,1,0.4)\n# data generating process\nmu <- -0.5 + 0.5*X + X*(-1.0*Z) + rnorm(1000,0,0.1)\n# logistic function\ntheta <- exp(mu) / (1 + exp(mu))\n# outcome\nY <- rbinom(1000, 1, theta)\ndata <- data.table(Y=Y, X=X, Z=Z)\n\n# model\nlogit <- glm(Y ~ X + X*Z, data=data, family = binomial(link=\"logit\"))\n\n# data with both values of X\nY1 <- data.table(Y = data$Y, X = 1, X = data$Z)\nY0 <- data.table(Y = data$Y, X = 0, X = data$Z)\n\n# expected value at each level of X# \nEY1 <- predict(logit, newdata=Y1, type='response')\nEY0 <- predict(logit, newdata=Y0, type='response')\n\n# create columns\ndata[, ':=' ('EY1' = EY1, 'EY0' = EY0)]\n\n# calculate estimand at different covariate values\ndata[, .('CATE' = mean(EY1 - EY0)), by=Z]\n```\n\n::: {.cell-output .cell-output-stdout}\n\n```\n   Z       CATE\n1: 0  0.1030976\n2: 1 -0.2149227\n```\n\n\n:::\n:::\n\n::: {.cell}\n\n```{.r .cell-code}\nlibrary(marginaleffects)\n\nmod <- glm(vs ~ hp * am, data = mtcars, family=binomial)\n```\n\n::: {.cell-output .cell-output-stderr}\n\n```\nWarning: glm.fit: fitted probabilities numerically 0 or 1 occurred\n```\n\n\n:::\n\n```{.r .cell-code}\ncomparisons(\n    mod, \n    variables='am', \n    newdata=datagrid(hp=c(100,120))\n)\n```\n\n::: {.cell-output .cell-output-stdout}\n\n```\n\n Term Contrast Estimate Std. Error     z Pr(>|z|)   S  2.5 %  97.5 %  hp\n   am    1 - 0   -0.391      0.189 -2.07   0.0386 4.7 -0.761 -0.0205 100\n   am    1 - 0   -0.707      0.253 -2.79   0.0052 7.6 -1.203 -0.2113 120\n\nColumns: rowid, term, contrast, estimate, std.error, statistic, p.value, s.value, conf.low, conf.high, predicted, predicted_hi, predicted_lo, vs, am, hp \n```\n\n\n:::\n\n```{.r .cell-code}\ncomparisons(\n    mod, \n    variables='am', \n    newdata=datagrid(hp=c(100,120)),\n    hypothesis='b1 = b2'\n)\n```\n\n::: {.cell-output .cell-output-stdout}\n\n```\n\n  Term Estimate Std. Error    z Pr(>|z|)   S   2.5 % 97.5 %\n b1=b2    0.316      0.201 1.58    0.115 3.1 -0.0773   0.71\n\nColumns: term, estimate, std.error, statistic, p.value, s.value, conf.low, conf.high \n```\n\n\n:::\n:::",
+    "supporting": [],
+    "filters": [
+      "rmarkdown/pagebreak.lua"
+    ],
+    "includes": {},
+    "engineDependencies": {},
+    "preserve": {},
+    "postProcess": true
+  }
+}
