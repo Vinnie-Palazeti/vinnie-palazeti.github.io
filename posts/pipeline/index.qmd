@@ -1,15 +1,146 @@
 ---
 title: Pipeline
+date: '2023-12-27'
 categories: [sklearn, Pipeline, ColumnTransformer]
 ---
 
-Useful code relating to:
 
 ```{python}
-import os
-os.envrion['Pipeline_python']
+import inspect
+import numpy as np
+import pandas as pd
+from scipy.special import expit
+from utils import map_idx, RidgeRegTransformer
+from sklearn.compose import ColumnTransformer
+from sklearn.pipeline import FeatureUnion, Pipeline
+from sklearn.preprocessing import StandardScaler
+from sklearn.linear_model import LogisticRegression
+```
 
+Create data
+
+```{python}
+# random number generator
+rng = np.random.default_rng(1995)
+
+data = pd.DataFrame(
+    {
+        'm1_feat1': rng.normal(20, 5, 1000),
+        'm1_feat2': rng.normal(25, 15, 1000),
+        'm2_feat1': rng.normal(10, 2, 1000),
+        'm2_feat2': rng.normal(30, 10, 1000),
+        'm2_feat3': rng.normal(15, 10, 1000),        
+})
+
+data['m1_target'] = data['m1_feat1']*10.0 + data['m1_feat1']*5.0 + rng.normal(0, 5, 1000)
+data['m2_target'] = data['m2_feat1']*10.0 + data['m2_feat2']*5.0 + data['m2_feat3']*1.2 + rng.normal(0, 5, 1000)
+
+data['target'] = expit(data['m1_target']*-1.10 + data['m2_target']*1.20 + rng.normal(0, 100, 1000)).round()
+```
+
+---
+
+Prep setup
+
+Create lists which refer to the required columns. I like using the indexes rather than the names, so I convert them all to indicies. But I believe RidgeRegTransformer can take either. 
+
+Check out the code [here]('').
+
+The target index needs to be the last item in the list.
+
+```{python}
+model1_features = ['m1_feat1','m1_feat2']
+model2_features = ['m2_feat1','m2_feat2','m2_feat3']
+
+model1_target = ['m1_target']
+model2_target = ['m2_target']
+
+model1_idxs = map_idx(data, model1_features) + map_idx(data, model1_target)
+model2_idxs = map_idx(data, model2_features) + map_idx(data, model2_target)
+
+model1_target_idx = len(model1_idxs) - 1
+model2_target_idx = len(model2_idxs) - 1
+
+model1_params = {"scaler": StandardScaler(), "alpha": 10}
+model2_params = {"scaler": StandardScaler(), "alpha": 10}
+meta_params = {"C": 0.20}
+```
+
+I am passing the StandardScaler to the regressions models via a dictionary. When the function is called the scaler is attached to the object.
+
+It doesn't feel right. I think instead the scaler should be passed in the pipeline somewhere, but then I'd have to create a sub-sub pipeline? Seems like too much
+
+--- 
+
+Two models with different targets and inputs
+
+```{python}
+multi_model_transformer = ColumnTransformer(
+    [
+        (
+            "model1",
+            RidgeRegTransformer(estimator_target=model1_target_idx, **model1_params),
+            model1_idxs,
+        ),
+        (
+            "model2",
+            RidgeRegTransformer(estimator_target=model2_target_idx, **model2_params),
+            model2_idxs,
+        )
+    ],
+    remainder="drop"
+)
 ```
 
 
+--- 
 
+Add meta classifier, which uses the underlying model's predictions as input
+
+Can also add a passthrough to the ColumnTransformer, which will passthrough other columns from the original dataset
+
+```{python}
+pipe = Pipeline(
+    [
+        ("feat_transformer", multi_model_transformer),
+        ("meta_classifier", LogisticRegression(**meta_params))
+    ]
+)
+```
+
+Fit the underylying ridge models & then the logistic regression
+
+```{python}
+pipe.fit(data.values, data['target'])
+```
+
+Produce probabilities for `target` 
+
+```{python}
+pipe.predict_proba(data.values)[:5]
+```
+
+
+---
+
+The base pipelines can also be estimators in a meta Pipeline VotingClassifier. Something like:
+
+```python
+meta_pipe = Pipeline(
+    [
+        [
+            "meta_pipe",
+            VotingClassifier(
+                estimators=[
+                    ("pipe1", multi_model_transformer1),
+                    ("pipe2", multi_model_transformer2),
+                    ("pipe3", multi_model_transformer3)
+                ],
+                voting="soft",
+            ),
+        ]
+    ]
+)
+
+meta_pipe.fit(data.values, data["target"])
+```

@@ -1,1 +1,8 @@
 notes.txt
+__pycache__/
+/.quarto/
+_site/
+.quarto/
+.DS_Store
+_environment
+_freeze/
