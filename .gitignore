@@ -6,3 +6,5 @@ _site/
 .DS_Store
 _environment
 _freeze/
+/_*.local
+.env
