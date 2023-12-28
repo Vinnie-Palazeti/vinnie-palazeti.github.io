@@ -1,5 +1,5 @@
 ---
-title: Pipeline
+title: pipeline
 date: '2023-12-27'
 categories: [sklearn, Pipeline, ColumnTransformer]
 ---

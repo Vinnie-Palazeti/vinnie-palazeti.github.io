@@ -10,7 +10,12 @@ website:
         href: https://github.com/
       - icon: twitter
         href: https://twitter.com
+  comments:
+    hypothesis: true        
+
 format:
   html:
     theme: sandstone-light
     css: styles.css
+    # highlight-style: kate
+

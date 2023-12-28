@@ -6,3 +6,5 @@ freeze: auto
 
 # Enable banner style title blocks
 title-block-banner: true
+
+author: 'Vincenzo Palazeti'

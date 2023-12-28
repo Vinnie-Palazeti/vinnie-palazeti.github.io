@@ -95,21 +95,10 @@ def extract_table(url: str) -> Iterable[Table]:
 
 
 
-```{python}
+```python
 url = "https://a.storyblok.com/f/47007/2400x2000/bf383abc3c/231031_uk-ireland-in-three-charts_table_v01_b.png"
 tables = extract_table(url)
 for tbl in tables:
     print(tbl.caption, end="\n")
     print(tbl.dataframe)
-```
-
-
-
-```{python}
-# type(tables[0].dataframe)
-dir(tables[0])
-
-# dir(Table)
-
-
 ```
