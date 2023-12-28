@@ -1,44 +1,114 @@
 [
   {
-    "objectID": "posts/interests/index.html",
-    "href": "posts/interests/index.html",
-    "title": "Place Holder",
+    "objectID": "about.html",
+    "href": "about.html",
+    "title": "Vincenzo Palazeti",
     "section": "",
-    "text": "Let’s hope Quarto’s ease assists in finding time to fill this page up"
+    "text": "Hello! My name is Vincenzo Palazeti. Most people call me Vinnie.\nI am a Data Scientist at Vevo. My main focus this far has been forecasting various quantities. Views, Watch Time, Revenue, etc.\nAll of our data is observational, which poses significant challenges. My goal for this year is to learn & implement quasi-experimental techniques. Also, our Youtube data is longitudinal, which I think is an interesting & yet unexplored path.\nPrior to Vevo I worked in the Sports & Horse wagering industry. There we were only interested in prediction accuracy & yield optimization."
+  },
+  {
+    "objectID": "about.html#experience",
+    "href": "about.html#experience",
+    "title": "Vincenzo Palazeti",
+    "section": "Experience",
+    "text": "Experience\n\n\n Data Scientist, 2023-Present\n\n\nVevo\n\n\n Data Scientist, 2022-2023\n\n\nAlphaPeak\n\n\n Data Scientist, 2020-2022\n\n\nSports Betting Innovative Analytics\n\n\n Statistician, 2019-2020\n\n\nCenter for Criminal Justice Research"
+  },
+  {
+    "objectID": "about.html#education",
+    "href": "about.html#education",
+    "title": "Vincenzo Palazeti",
+    "section": "Education",
+    "text": "Education\n\n\n MS in Applied Statistics, 2020\n\n\nUniversity of Loyola Chicago\n\n\n BS in Professional Selling, 2017\n\n\nBall State University"
+  },
+  {
+    "objectID": "posts/sql/index.html",
+    "href": "posts/sql/index.html",
+    "title": "SQL",
+    "section": "",
+    "text": "In Redshift, the random function is run every time the function is called.\nTherefore, if you need to use the same random number multiple times\n\nRandomly sample the history of a product, within a store, between two dates.\n..."
+  },
+  {
+    "objectID": "posts/sql/index.html#random",
+    "href": "posts/sql/index.html#random",
+    "title": "SQL",
+    "section": "",
+    "text": "In Redshift, the random function is run every time the function is called.\nTherefore, if you need to use the same random number multiple times\n\nRandomly sample the history of a product, within a store, between two dates.\n..."
+  },
+  {
+    "objectID": "posts/pandas/index.html",
+    "href": "posts/pandas/index.html",
+    "title": "Pandas",
+    "section": "",
+    "text": "Useful Pandas stuff\nGrab all of the month names\nmonths = pd.date_range('2020-01-01','2020-12-31',freq='MS').map(lambda x: x.month_name())"
+  },
+  {
+    "objectID": "posts/zsh/index.html",
+    "href": "posts/zsh/index.html",
+    "title": "zsh",
+    "section": "",
+    "text": "Look up past commands\nhistory | grep docker"
+  },
+  {
+    "objectID": "posts/log/index.html",
+    "href": "posts/log/index.html",
+    "title": "logistic",
+    "section": "",
+    "text": "Placeholder for working with the Logistic Difference function"
+  },
+  {
+    "objectID": "posts/docker/index.html",
+    "href": "posts/docker/index.html",
+    "title": "Docker",
+    "section": "",
+    "text": "Two stage Dockerfile. Runner image is slim with only virtual environment.\nFROM ubuntu:20.04 AS builder-image\n\n# avoid stuck build due to user prompt\nARG DEBIAN_FRONTEND=noninteractive\n\nRUN apt-get update && \\\n    apt-get install --no-install-recommends -y python3.9 python3.9-dev python3.9-venv python3-pip python3-wheel build-essential && \\\n    apt-get clean && \\\n    rm -rf /var/lib/apt/lists/*\n\n# create and activate virtual environment\n# using final folder name to avoid path issues with packages\nRUN python3.9 -m venv /home/myuser/venv\nENV PATH=\"/home/myuser/venv/bin:$PATH\"\n\n# install requirements\nCOPY app/requirements.txt .\nRUN pip3 install --no-cache-dir wheel\nRUN pip3 install --no-cache-dir -r requirements.txt\n\nFROM ubuntu:20.04 AS runner-image\nRUN apt-get update && \\\n    apt-get install --no-install-recommends -y python3.9 python3-venv && \\\n    apt-get clean && \\\n    rm -rf /var/lib/apt/lists/*\n\nRUN useradd --create-home myuser\nCOPY --from=builder-image /home/myuser/venv /home/myuser/venv\n\nUSER myuser\nRUN mkdir /home/myuser/code\nWORKDIR /home/myuser/code\nCOPY app .\n\n# make sure all messages always reach console\nENV PYTHONUNBUFFERED=1\n\n# activate virtual environment\nENV VIRTUAL_ENV=/home/myuser/venv\nENV PATH=\"/home/myuser/venv/bin:$PATH\"\nI’ve been told installing python manually is not worth the effort & nudged to use the official docker python images.\nThis is good advice, because I have struggled with C package installs (specifically for LGBM).\n\nCreate a container & attach a volume to the image. This command opens the container in interactive mode, mounts the /app directory as a volumne, and links the port 8080.\nThis is useful because changes to application, or whatever you are working on, are reflected inside of the docker container.\nI have been using this with streamlit, but I believe it should work with jupyter. Linking to jupyter through a docker container is a pain, so maybe not. I’ll have to check.\ndocker run -it --rm -v $(pwd)/app:/home/myuser/code -p 8080:8080 img_name\n\nIf your environment requires variables you can pass them through with --env-file\ndocker run --env-file .env-local \nWith the format:\nDS_BUCKET=XXXX\nAWS_ACCESS_KEY_ID_DEV=XXXX\nAWS_SECRET_ACCESS_KEY_DEV=XXXX"
+  },
+  {
+    "objectID": "posts/pipeline/index.html",
+    "href": "posts/pipeline/index.html",
+    "title": "Pipeline",
+    "section": "",
+    "text": "import inspect\nimport numpy as np\nimport pandas as pd\nfrom scipy.special import expit\nfrom utils import map_idx, RidgeRegTransformer\nfrom sklearn.compose import ColumnTransformer\nfrom sklearn.pipeline import FeatureUnion, Pipeline\nfrom sklearn.preprocessing import StandardScaler\nfrom sklearn.linear_model import LogisticRegression\n\nCreate data\n\n# random number generator\nrng = np.random.default_rng(1995)\n\ndata = pd.DataFrame(\n    {\n        'm1_feat1': rng.normal(20, 5, 1000),\n        'm1_feat2': rng.normal(25, 15, 1000),\n        'm2_feat1': rng.normal(10, 2, 1000),\n        'm2_feat2': rng.normal(30, 10, 1000),\n        'm2_feat3': rng.normal(15, 10, 1000),        \n})\n\ndata['m1_target'] = data['m1_feat1']*10.0 + data['m1_feat1']*5.0 + rng.normal(0, 5, 1000)\ndata['m2_target'] = data['m2_feat1']*10.0 + data['m2_feat2']*5.0 + data['m2_feat3']*1.2 + rng.normal(0, 5, 1000)\n\ndata['target'] = expit(data['m1_target']*-1.10 + data['m2_target']*1.20 + rng.normal(0, 100, 1000)).round()\n\n\nPrep setup\nCreate lists which refer to the required columns. I like using the indexes rather than the names, so I convert them all to indicies. But I believe RidgeRegTransformer can take either. Check out the code here.\nThe target index needs to be the last item in the list.\n\nmodel1_features = ['m1_feat1','m1_feat2']\nmodel2_features = ['m2_feat1','m2_feat2','m2_feat3']\n\nmodel1_target = ['m1_target']\nmodel2_target = ['m2_target']\n\nmodel1_idxs = map_idx(data, model1_features) + map_idx(data, model1_target)\nmodel2_idxs = map_idx(data, model2_features) + map_idx(data, model2_target)\n\nmodel1_target_idx = len(model1_idxs) - 1\nmodel2_target_idx = len(model2_idxs) - 1\n\nmodel1_params = {\"scaler\": StandardScaler(), \"alpha\": 10}\nmodel2_params = {\"scaler\": StandardScaler(), \"alpha\": 10}\nmeta_params = {\"C\": 0.20}\n\nI am passing the StandardScaler to the regressions models via a dictionary. When the function is called the scaler is attached to the object.\nIt doesn’t feel right. I think instead the scaler should be passed in the pipeline somewhere, but then I’d have to create a sub-sub pipeline? Seems like too much\n\nTwo models with different targets and inputs\n\nmulti_model_transformer = ColumnTransformer(\n    [\n        (\n            \"model1\",\n            RidgeRegTransformer(estimator_target=model1_target_idx, **model1_params),\n            model1_idxs,\n        ),\n        (\n            \"model2\",\n            RidgeRegTransformer(estimator_target=model2_target_idx, **model2_params),\n            model2_idxs,\n        )\n    ],\n    remainder=\"drop\"\n)\n\n\nAdd meta classifier, which uses the underlying model’s predictions as input\nCan also add a passthrough to the ColumnTransformer, which will passthrough other columns from the original dataset\n\npipe = Pipeline(\n    [\n        (\"feat_transformer\", multi_model_transformer),\n        (\"meta_classifier\", LogisticRegression(**meta_params))\n    ]\n)\n\nFit the underylying ridge models & then the logistic regression\n\npipe.fit(data.values, data['target'])\n\nPipeline(steps=[('feat_transformer',\n                 ColumnTransformer(transformers=[('model1',\n                                                  RidgeRegTransformer(alpha=10,\n                                                                      estimator_target=2,\n                                                                      scaler=StandardScaler()),\n                                                  [0, 1, 5]),\n                                                 ('model2',\n                                                  RidgeRegTransformer(alpha=10,\n                                                                      estimator_target=3,\n                                                                      scaler=StandardScaler()),\n                                                  [2, 3, 4, 6])])),\n                ('meta_classifier', LogisticRegression(C=0.2))])In a Jupyter environment, please rerun this cell to show the HTML representation or trust the notebook. On GitHub, the HTML representation is unable to render, please try loading this page with nbviewer.org.PipelinePipeline(steps=[('feat_transformer',\n                 ColumnTransformer(transformers=[('model1',\n                                                  RidgeRegTransformer(alpha=10,\n                                                                      estimator_target=2,\n                                                                      scaler=StandardScaler()),\n                                                  [0, 1, 5]),\n                                                 ('model2',\n                                                  RidgeRegTransformer(alpha=10,\n                                                                      estimator_target=3,\n                                                                      scaler=StandardScaler()),\n                                                  [2, 3, 4, 6])])),\n                ('meta_classifier', LogisticRegression(C=0.2))])feat_transformer: ColumnTransformerColumnTransformer(transformers=[('model1',\n                                 RidgeRegTransformer(alpha=10,\n                                                     estimator_target=2,\n                                                     scaler=StandardScaler()),\n                                 [0, 1, 5]),\n                                ('model2',\n                                 RidgeRegTransformer(alpha=10,\n                                                     estimator_target=3,\n                                                     scaler=StandardScaler()),\n                                 [2, 3, 4, 6])])model1[0, 1, 5]scaler: StandardScalerStandardScaler()StandardScalerStandardScaler()model2[2, 3, 4, 6]scaler: StandardScalerStandardScaler()StandardScalerStandardScaler()LogisticRegressionLogisticRegression(C=0.2)\n\n\nProduce probabilities for target\n\npipe.predict_proba(data.values)[:5]\n\narray([[0.4386381 , 0.5613619 ],\n       [0.05467618, 0.94532382],\n       [0.75733447, 0.24266553],\n       [0.23029838, 0.76970162],\n       [0.49828572, 0.50171428]])\n\n\n\nThe base pipelines can also be estimators in a meta Pipeline VotingClassifier. Something like:\nmeta_pipe = Pipeline(\n    [\n        [\n            \"meta_pipe\",\n            VotingClassifier(\n                estimators=[\n                    (\"pipe1\", multi_model_transformer1),\n                    (\"pipe2\", multi_model_transformer2),\n                    (\"pipe3\", multi_model_transformer3)\n                ],\n                voting=\"soft\",\n            ),\n        ]\n    ]\n)\n\nmeta_pipe.fit(data.values, data[\"target\"])"
+  },
+  {
+    "objectID": "posts/llm/index.html",
+    "href": "posts/llm/index.html",
+    "title": "LLM",
+    "section": "",
+    "text": "from dotenv import load_dotenv\nload_dotenv('../.env')\n\nTrue\n\n\n\nfrom io import StringIO\nfrom typing import Annotated, Any, Iterable\nfrom openai import OpenAI\nfrom pydantic import (\n    BaseModel,\n    BeforeValidator,\n    PlainSerializer,\n    InstanceOf,\n    WithJsonSchema,\n)\nimport pandas as pd\nimport instructor\n\n\nclient = instructor.patch(OpenAI(), mode=instructor.function_calls.Mode.MD_JSON)\n\n\ndef to_markdown(df: pd.DataFrame) -&gt; str:\n    return df.to_markdown()\n\n\ndef md_to_df(data: Any) -&gt; Any:\n    if isinstance(data, str):\n        return (\n            pd.read_csv(\n                StringIO(data),  # Get rid of whitespaces\n                sep=\"|\",\n                index_col=1,\n            )\n            .dropna(axis=1, how=\"all\")\n            .iloc[1:]\n            .map(lambda x: x.strip())\n        )\n    return data\n\n\nMarkdownDataFrame = Annotated[\n    InstanceOf[pd.DataFrame],\n    BeforeValidator(md_to_df),\n    PlainSerializer(to_markdown),\n    WithJsonSchema(\n        {\n            \"type\": \"string\",\n            \"description\": \"\"\"\n                The markdown representation of the table, \n                each one should be tidy, do not try to join tables\n                that should be seperate\"\"\",\n        }\n    ),\n]\n\n\nclass Table(BaseModel):\n    caption: str\n    dataframe: MarkdownDataFrame\n\n\ndef extract_table(url: str) -&gt; Iterable[Table]:\n    return client.chat.completions.create(\n        model=\"gpt-4-vision-preview\",\n        response_model=Iterable[Table],\n        max_tokens=1800,\n        messages=[\n            {\n                \"role\": \"user\",\n                \"content\": [\n                    {\n                        \"type\": \"text\",\n                        \"text\": \"\"\"Extract the table from the image, and describe it. \n                        Each table should be tidy, do not try to join tables that \n                        should be seperately described.\"\"\",\n                    },\n                    {\n                        \"type\": \"image_url\",\n                        \"image_url\": {\"url\": url},\n                    },\n                ],\n            }\n        ],\n    )\n\nurl = \"https://a.storyblok.com/f/47007/2400x2000/bf383abc3c/231031_uk-ireland-in-three-charts_table_v01_b.png\"\ntables = extract_table(url)\nfor tbl in tables:\n    print(tbl.caption, end=\"\\n\")\n    print(tbl.dataframe)"
+  },
+  {
+    "objectID": "posts/biz_ops/index.html",
+    "href": "posts/biz_ops/index.html",
+    "title": "Business Ops.",
+    "section": "",
+    "text": "MMM"
+  },
+  {
+    "objectID": "posts/glm/index.html",
+    "href": "posts/glm/index.html",
+    "title": "GLM",
+    "section": "",
+    "text": "The conditional average treatment effect\n\\[\n\\text{CATE} = \\mathbb{E}[\\text{Pr}(\\text{Y}_i = 1 \\ |\\ \\text{X}_i = 1) \\ - \\ \\text{Pr}(\\text{Y}_i = 1 \\ |\\ \\text{X}_i = 0) \\ | \\ \\text{Z}_i = z]\n\\]\n\nlibrary(data.table)\n\n# covariates\nX &lt;- rbinom(1000,1,0.5)\nZ &lt;- rbinom(1000,1,0.4)\n# data generating process\nmu &lt;- -0.5 + 0.5*X + X*(-1.0*Z) + rnorm(1000,0,0.1)\n# logistic function\ntheta &lt;- exp(mu) / (1 + exp(mu))\n# outcome\nY &lt;- rbinom(1000, 1, theta)\ndata &lt;- data.table(Y=Y, X=X, Z=Z)\n\n# model\nlogit &lt;- glm(Y ~ X + X*Z, data=data, family = binomial(link=\"logit\"))\n\n# data with both values of X\nY1 &lt;- data.table(Y = data$Y, X = 1, X = data$Z)\nY0 &lt;- data.table(Y = data$Y, X = 0, X = data$Z)\n\n# expected value at each level of X# \nEY1 &lt;- predict(logit, newdata=Y1, type='response')\nEY0 &lt;- predict(logit, newdata=Y0, type='response')\n\n# create columns\ndata[, ':=' ('EY1' = EY1, 'EY0' = EY0)]\n\n# calculate estimand at different covariate values\ndata[, .('CATE' = mean(EY1 - EY0)), by=Z]\n\n   Z       CATE\n1: 0  0.1030976\n2: 1 -0.2149227\n\n\n\nlibrary(marginaleffects)\n\nmod &lt;- glm(vs ~ hp * am, data = mtcars, family=binomial)\n\nWarning: glm.fit: fitted probabilities numerically 0 or 1 occurred\n\ncomparisons(\n    mod, \n    variables='am', \n    newdata=datagrid(hp=c(100,120))\n)\n\n\n Term Contrast Estimate Std. Error     z Pr(&gt;|z|)   S  2.5 %  97.5 %  hp\n   am    1 - 0   -0.391      0.189 -2.07   0.0386 4.7 -0.761 -0.0205 100\n   am    1 - 0   -0.707      0.253 -2.79   0.0052 7.6 -1.203 -0.2113 120\n\nColumns: rowid, term, contrast, estimate, std.error, statistic, p.value, s.value, conf.low, conf.high, predicted, predicted_hi, predicted_lo, vs, am, hp \n\ncomparisons(\n    mod, \n    variables='am', \n    newdata=datagrid(hp=c(100,120)),\n    hypothesis='b1 = b2'\n)\n\n\n  Term Estimate Std. Error    z Pr(&gt;|z|)   S   2.5 % 97.5 %\n b1=b2    0.316      0.201 1.58    0.115 3.1 -0.0773   0.71\n\nColumns: term, estimate, std.error, statistic, p.value, s.value, conf.low, conf.high"
+  },
+  {
+    "objectID": "posts/glm/index.html#cate",
+    "href": "posts/glm/index.html#cate",
+    "title": "GLM",
+    "section": "",
+    "text": "The conditional average treatment effect\n\\[\n\\text{CATE} = \\mathbb{E}[\\text{Pr}(\\text{Y}_i = 1 \\ |\\ \\text{X}_i = 1) \\ - \\ \\text{Pr}(\\text{Y}_i = 1 \\ |\\ \\text{X}_i = 0) \\ | \\ \\text{Z}_i = z]\n\\]\n\nlibrary(data.table)\n\n# covariates\nX &lt;- rbinom(1000,1,0.5)\nZ &lt;- rbinom(1000,1,0.4)\n# data generating process\nmu &lt;- -0.5 + 0.5*X + X*(-1.0*Z) + rnorm(1000,0,0.1)\n# logistic function\ntheta &lt;- exp(mu) / (1 + exp(mu))\n# outcome\nY &lt;- rbinom(1000, 1, theta)\ndata &lt;- data.table(Y=Y, X=X, Z=Z)\n\n# model\nlogit &lt;- glm(Y ~ X + X*Z, data=data, family = binomial(link=\"logit\"))\n\n# data with both values of X\nY1 &lt;- data.table(Y = data$Y, X = 1, X = data$Z)\nY0 &lt;- data.table(Y = data$Y, X = 0, X = data$Z)\n\n# expected value at each level of X# \nEY1 &lt;- predict(logit, newdata=Y1, type='response')\nEY0 &lt;- predict(logit, newdata=Y0, type='response')\n\n# create columns\ndata[, ':=' ('EY1' = EY1, 'EY0' = EY0)]\n\n# calculate estimand at different covariate values\ndata[, .('CATE' = mean(EY1 - EY0)), by=Z]\n\n   Z       CATE\n1: 0  0.1030976\n2: 1 -0.2149227\n\n\n\nlibrary(marginaleffects)\n\nmod &lt;- glm(vs ~ hp * am, data = mtcars, family=binomial)\n\nWarning: glm.fit: fitted probabilities numerically 0 or 1 occurred\n\ncomparisons(\n    mod, \n    variables='am', \n    newdata=datagrid(hp=c(100,120))\n)\n\n\n Term Contrast Estimate Std. Error     z Pr(&gt;|z|)   S  2.5 %  97.5 %  hp\n   am    1 - 0   -0.391      0.189 -2.07   0.0386 4.7 -0.761 -0.0205 100\n   am    1 - 0   -0.707      0.253 -2.79   0.0052 7.6 -1.203 -0.2113 120\n\nColumns: rowid, term, contrast, estimate, std.error, statistic, p.value, s.value, conf.low, conf.high, predicted, predicted_hi, predicted_lo, vs, am, hp \n\ncomparisons(\n    mod, \n    variables='am', \n    newdata=datagrid(hp=c(100,120)),\n    hypothesis='b1 = b2'\n)\n\n\n  Term Estimate Std. Error    z Pr(&gt;|z|)   S   2.5 % 97.5 %\n b1=b2    0.316      0.201 1.58    0.115 3.1 -0.0773   0.71\n\nColumns: term, estimate, std.error, statistic, p.value, s.value, conf.low, conf.high"
+  },
+  {
+    "objectID": "posts/ols/index.html",
+    "href": "posts/ols/index.html",
+    "title": "OLS",
+    "section": "",
+    "text": "This is the first post in a Quarto blog. Welcome!\n\nSince this post doesn’t specify an explicit image, the first image in the post will be used in the listing page of posts."
   },
   {
     "objectID": "index.html",
     "href": "index.html",
-    "title": "Vincenzo Palazeti",
+    "title": "Posts",
     "section": "",
-    "text": "education\n\n\nGraduation Cap MS in Applied Statistics, 2020\n\n\nUniversity of Loyola Chicago\n\n\nGraduation Cap BS in Professional Selling, 2017\n\n\nBall State University\n\n\n\n\n\nexperience\n\n\nBar Chart Lead Data Scientist, 2022-present\n\n\nAlphaPeak\n\n\nLine Chart Data Scientist, 2021-2022\n\n\nSports Betting Innovative Analytics\n\n\nChalkboard user Statistician, 2020-2021\n\n\nCenter for Criminal Justice Research"
-  },
-  {
-    "objectID": "about.html",
-    "href": "about.html",
-    "title": "about",
-    "section": "",
-    "text": "I live in Indianapolis, Indiana. It’s a great city with an extremely relaxed vibe.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nI live here with my partner Hattie. We both really enjoy living downtown.\n\nWalking to resturants, coffee shops, movie theaters, etc. is unbeatable. At this point, I can’t see myself moving out of the city."
-  },
-  {
-    "objectID": "about.html#kevin",
-    "href": "about.html#kevin",
-    "title": "about",
-    "section": "Dog kevin",
-    "text": "Dog kevin\n\n\n\n\n\n\n\n\n\nHattie & I picked him up in September. He was 10 lbs. A month later he was 21 lbs.\n\n\nKevin is a large guy (and a very good boy).\n\n\n\n\nThis is my first pet ever. Puppies are no joke. Training Kevin has been an arduous process.\n\n\nThough, we are going to have fun along the way."
-  },
-  {
-    "objectID": "about.html#ball-state",
-    "href": "about.html#ball-state",
-    "title": "about",
-    "section": "Football Ball ball state",
-    "text": "Football Ball ball state\n\n\n\n\n\n\n\n\n\nI played football at Ball State University in Muncie, Indiana. I had a ton of fun. Senior year, my teammates elected me a captain, which is an accomplishment I hold very dearly.\n\nI loved living in Muncie. Most folks find this strange!\n\nFor a while, I was incredibly glad to be finished playing. I’m now ~5 years out and am beginning to miss it.\n\n..or maybe I am just forgetting the injuries…"
-  },
-  {
-    "objectID": "posts.html",
-    "href": "posts.html",
-    "title": "posts",
-    "section": "",
-    "text": "misc\n\n\n\n\n\n\n\n\n\n\n\nOct 1, 2022\n\n\n\n\n\n\nNo matching items"
+    "text": "Title\n\n\nDate\n\n\n\n\n\n\nPipeline\n\n\nDec 27, 2023\n\n\n\n\nlogistic\n\n\nDec 27, 2023\n\n\n\n\nPandas\n\n\nDec 20, 2023\n\n\n\n\nLLM\n\n\nDec 16, 2023\n\n\n\n\nGLM\n\n\nDec 16, 2023\n\n\n\n\nDocker\n\n\nDec 2, 2023\n\n\n\n\nAirflow\n\n\nDec 2, 2023\n\n\n\n\nBusiness Ops.\n\n\nDec 2, 2023\n\n\n\n\nMongoDB\n\n\nDec 2, 2023\n\n\n\n\nSQL\n\n\nDec 2, 2023\n\n\n\n\nOLS\n\n\nNov 29, 2023\n\n\n\n\nzsh\n\n\nFeb 1, 2023\n\n\n\n\n\nNo matching items"
   }
 ]

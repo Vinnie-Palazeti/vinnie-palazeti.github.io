@@ -1,19 +1,59 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://Vinnie-Palazeti.github.io/vinnie-palazeti.github.io/posts/interests/index.html</loc>
-    <lastmod>2023-02-17T16:43:21.624Z</lastmod>
+    <loc>https://Vinnie-Palazeti.github.io/vinnie-palazeti.github.io/about.html</loc>
+    <lastmod>2023-12-28T02:31:47.245Z</lastmod>
+  </url>
+  <url>
+    <loc>https://Vinnie-Palazeti.github.io/vinnie-palazeti.github.io/posts/sql/index.html</loc>
+    <lastmod>2023-12-27T17:15:00.069Z</lastmod>
+  </url>
+  <url>
+    <loc>https://Vinnie-Palazeti.github.io/vinnie-palazeti.github.io/posts/pandas/index.html</loc>
+    <lastmod>2023-12-27T23:14:30.726Z</lastmod>
+  </url>
+  <url>
+    <loc>https://Vinnie-Palazeti.github.io/vinnie-palazeti.github.io/posts/zsh/index.html</loc>
+    <lastmod>2023-12-27T17:15:04.627Z</lastmod>
+  </url>
+  <url>
+    <loc>https://Vinnie-Palazeti.github.io/vinnie-palazeti.github.io/posts/log/index.html</loc>
+    <lastmod>2023-12-27T23:13:43.060Z</lastmod>
+  </url>
+  <url>
+    <loc>https://Vinnie-Palazeti.github.io/vinnie-palazeti.github.io/posts/airflow/index.html</loc>
+    <lastmod>2023-12-27T17:14:22.783Z</lastmod>
+  </url>
+  <url>
+    <loc>https://Vinnie-Palazeti.github.io/vinnie-palazeti.github.io/posts/docker/index.html</loc>
+    <lastmod>2023-12-28T01:57:03.754Z</lastmod>
+  </url>
+  <url>
+    <loc>https://Vinnie-Palazeti.github.io/vinnie-palazeti.github.io/posts/pipeline/index.html</loc>
+    <lastmod>2023-12-28T01:20:04.173Z</lastmod>
+  </url>
+  <url>
+    <loc>https://Vinnie-Palazeti.github.io/vinnie-palazeti.github.io/posts/llm/index.html</loc>
+    <lastmod>2023-12-28T03:46:32.336Z</lastmod>
+  </url>
+  <url>
+    <loc>https://Vinnie-Palazeti.github.io/vinnie-palazeti.github.io/posts/biz_ops/index.html</loc>
+    <lastmod>2023-12-27T17:14:26.423Z</lastmod>
+  </url>
+  <url>
+    <loc>https://Vinnie-Palazeti.github.io/vinnie-palazeti.github.io/posts/mongo/index.html</loc>
+    <lastmod>2023-12-19T16:35:45.570Z</lastmod>
+  </url>
+  <url>
+    <loc>https://Vinnie-Palazeti.github.io/vinnie-palazeti.github.io/posts/glm/index.html</loc>
+    <lastmod>2023-12-27T17:14:35.863Z</lastmod>
+  </url>
+  <url>
+    <loc>https://Vinnie-Palazeti.github.io/vinnie-palazeti.github.io/posts/ols/index.html</loc>
+    <lastmod>2023-12-27T17:14:46.701Z</lastmod>
   </url>
   <url>
     <loc>https://Vinnie-Palazeti.github.io/vinnie-palazeti.github.io/index.html</loc>
-    <lastmod>2023-02-17T16:43:22.500Z</lastmod>
-  </url>
-  <url>
-    <loc>https://Vinnie-Palazeti.github.io/vinnie-palazeti.github.io/about.html</loc>
-    <lastmod>2023-02-17T16:43:23.746Z</lastmod>
-  </url>
-  <url>
-    <loc>https://Vinnie-Palazeti.github.io/vinnie-palazeti.github.io/posts.html</loc>
-    <lastmod>2023-02-17T16:43:24.076Z</lastmod>
+    <lastmod>2023-12-28T02:01:58.355Z</lastmod>
   </url>
 </urlset>
