@@ -42,9 +42,8 @@ data['target'] = expit(data['m1_target']*-1.10 + data['m2_target']*1.20 + rng.no
 
 Prep setup
 
-Create lists which refer to the required columns. I like using the indexes rather than the names, so I convert them all to indicies. But I believe RidgeRegTransformer can take either. 
+Create lists which refer to the required columns. I like using the indexes rather than the names, so I convert them all to indicies. But I believe RidgeRegTransformer can take either. Check out the code [here](https://github.com/Vinnie-Palazeti/vinnie-palazeti.github.io/blob/main/posts/pipeline/utils.py).
 
-Check out the code [here]('').
 
 The target index needs to be the last item in the list.
 

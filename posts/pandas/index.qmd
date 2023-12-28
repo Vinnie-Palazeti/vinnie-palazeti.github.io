@@ -1,10 +1,10 @@
 ---
 title: 'Pandas'
 categories: ['code','dates', 'timeseries']
+date: '2023-12-20'
 ---
 
-
-
+Useful Pandas stuff
 
 
 Grab all of the month names

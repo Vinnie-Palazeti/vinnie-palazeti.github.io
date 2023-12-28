@@ -4,11 +4,11 @@ image: profile.jpg
 about:
   template: trestles
   image-shape: rounded
-  image-width: 16em
+  image-width: 20em
   links:
     - icon: linkedin
       text: LinkedIn
-      href: https://linkedin.com
+      href: https://www.linkedin.com/in/vincenzo-palazeti/
     - icon: github
       text: Github
       href: https://github.com
@@ -19,16 +19,15 @@ about:
 
 Hello! My name is Vincenzo Palazeti. Most people call me Vinnie.
 
-I am a Data Scientist at Vevo. 
+I am a Data Scientist at Vevo. My main focus this far has been forecasting various quantities. Views, Watch Time, Revenue, etc. 
 
-I have extensive experience competing in the sports betting startup space, building production grade python software, solving daily novel problems, and evaluating diverse statistical models. </p>
+All of our data is observational, which poses significant challenges. My goal for this year is to learn & implement quasi-experimental techniques. Also, our Youtube data is longitudinal, which I think is an interesting & yet unexplored path.
 
-
+Prior to Vevo I worked in the Sports & Horse wagering industry. There we were only interested in prediction accuracy & yield optimization. 
 
 ## Experience
 
 ---
-
 
 <p class="custom-title">{{< fa headphones >}}  **Data Scientist, 2023-Present**</p>
 <p class="custom-subtitle">Vevo</p>

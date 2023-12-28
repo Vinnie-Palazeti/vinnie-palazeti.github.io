@@ -1,4 +1,7 @@
 ---
 title: logistic
+date: '2023-12-27'
 ---
 
+
+Placeholder for working with the Logistic Difference function
