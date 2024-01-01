@@ -11,7 +11,7 @@ about:
       href: https://www.linkedin.com/in/vincenzo-palazeti/
     - icon: github
       text: Github
-      href: https://github.com
+      href: https://github.com/vinnie-palazeti
     - icon: github
       text: Resume
       href: resume.pdf
@@ -19,9 +19,8 @@ about:
 
 I am a Data Scientist at Vevo. My main focus thus far has been forecasting various quantities. Views, Watch Time, Revenue, etc. 
 
-All of our data is observational, which poses significant challenges. My goal for this year is to learn & implement quasi-experimental methods. Also, our Youtube data is longitudinal, which I think is an interesting & yet unexplored path.
+Prior to Vevo I worked in the Sports & Horse wagering industries. Some of the topics I've spent time on are yield optimization, ensembling methods, ranking algorthims, timeseries, experimental methods, & data engineering.
 
-Prior to Vevo I worked in the Sports & Horse wagering industry. The first two places I was employed had a total workforce of 4 & 10, respectively. So, I gained a lot of experience building (everything) from the ground up. Some of the topics I spent time on were yield optimization, ensembling methods, ranking algorthims, & data engineering.
 
 ## Experience
 
@@ -49,3 +48,13 @@ Prior to Vevo I worked in the Sports & Horse wagering industry. The first two pl
 
 <p class="custom-title">{{< fa graduation-cap >}}  **BS in Professional Selling, 2017**</p>
 <p class="custom-subtitle">Ball State University</p>
+
+
+<!-- 
+
+
+
+All of our data is observational, which poses significant challenges. My goal for this year is to learn & implement quasi-experimental methods. Also, our Youtube data is longitudinal, which I think is an interesting & yet unexplored path.
+
+
+ -->

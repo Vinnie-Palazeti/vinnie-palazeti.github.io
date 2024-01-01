@@ -4,13 +4,24 @@ date: "2023-12-16"
 categories: [LLM]
 ---
 
+
+WIP
+
+cool package [instructor](https://jxnl.github.io/instructor/)
+
+manual indexing was beaten out of me at my first job, so when I saw this online I had to check it out.
+
+looks like a cool package too.
+
 ```{python}
+#| eval: false
 from dotenv import load_dotenv
 load_dotenv('../.env')
 ```
 
 
 ```{python}
+#| eval: false
 from io import StringIO
 from typing import Annotated, Any, Iterable
 from openai import OpenAI
@@ -95,7 +106,8 @@ def extract_table(url: str) -> Iterable[Table]:
 
 
 
-```python
+```{python}
+#| eval: false
 url = "https://a.storyblok.com/f/47007/2400x2000/bf383abc3c/231031_uk-ireland-in-three-charts_table_v01_b.png"
 tables = extract_table(url)
 for tbl in tables:

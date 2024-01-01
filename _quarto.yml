@@ -7,15 +7,12 @@ website:
     right:
       - about.qmd
       - icon: github
-        href: https://github.com/
+        href: https://github.com/vinnie-palazeti
       - icon: twitter
-        href: https://twitter.com
-  comments:
-    hypothesis: true        
+        href: https://twitter.com       
 
 format:
   html:
     theme: sandstone-light
     css: styles.css
-    # highlight-style: kate
 
