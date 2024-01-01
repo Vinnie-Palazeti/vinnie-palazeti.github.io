@@ -17,6 +17,10 @@ about:
       href: resume.pdf
 ---
 
+## Hello
+
+My name is Vincenzo Palazeti, but everyone calls me Vinnie.
+
 I am a Data Scientist at Vevo. My main focus thus far has been forecasting various quantities. Views, Watch Time, Revenue, etc. 
 
 Prior to Vevo I worked in the Sports & Horse wagering industries. Some of the topics I've spent time on are yield optimization, ensembling methods, ranking algorthims, timeseries, experimental methods, & data engineering.
