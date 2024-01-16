@@ -2,13 +2,13 @@
   {
     "listing": "/index.html",
     "items": [
+      "/posts/indy/index.html",
       "/posts/survival/index.html",
       "/posts/pipeline/index.html",
       "/posts/pandas/index.html",
       "/posts/llm/index.html",
       "/posts/docker/index.html",
-      "/posts/airflow/index.html",
-      "/posts/ols/index.html"
+      "/posts/airflow/index.html"
     ]
   }
 ]

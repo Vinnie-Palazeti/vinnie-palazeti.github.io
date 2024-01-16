@@ -77,7 +77,7 @@ ul.task-list li input[type="checkbox"] {
     }
 
     const options = {
-      valueNames: ['listing-title','listing-date',{ data: ['index'] },{ data: ['categories'] },{ data: ['listing-date-sort'] },{ data: ['listing-title-sort'] }],
+      valueNames: ['listing-title','listing-categories','listing-date',{ data: ['index'] },{ data: ['categories'] },{ data: ['listing-date-sort'] },{ data: ['listing-title-sort'] }],
       
       searchColumns: ["listing-date","listing-title","listing-author"],
     };
@@ -163,7 +163,7 @@ ul.task-list li input[type="checkbox"] {
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
         
-    <h5 class="quarto-listing-category-title">Categories</h5><div class="quarto-listing-category category-default"><div class="category" data-category="">All <span class="quarto-category-count">(7)</span></div><div class="category" data-category="ColumnTransformer">ColumnTransformer <span class="quarto-category-count">(1)</span></div><div class="category" data-category="LLM">LLM <span class="quarto-category-count">(1)</span></div><div class="category" data-category="Pipeline">Pipeline <span class="quarto-category-count">(1)</span></div><div class="category" data-category="analysis">analysis <span class="quarto-category-count">(1)</span></div><div class="category" data-category="code">code <span class="quarto-category-count">(3)</span></div><div class="category" data-category="dates">dates <span class="quarto-category-count">(1)</span></div><div class="category" data-category="news">news <span class="quarto-category-count">(1)</span></div><div class="category" data-category="sklearn">sklearn <span class="quarto-category-count">(1)</span></div><div class="category" data-category="statistics">statistics <span class="quarto-category-count">(2)</span></div><div class="category" data-category="timeseries">timeseries <span class="quarto-category-count">(1)</span></div></div></div>
+    <h5 class="quarto-listing-category-title">Categories</h5><div class="quarto-listing-category category-default"><div class="category" data-category="">All <span class="quarto-category-count">(7)</span></div><div class="category" data-category="LLM">LLM <span class="quarto-category-count">(1)</span></div><div class="category" data-category="Pipeline">Pipeline <span class="quarto-category-count">(1)</span></div><div class="category" data-category="analysis">analysis <span class="quarto-category-count">(1)</span></div><div class="category" data-category="code">code <span class="quarto-category-count">(5)</span></div><div class="category" data-category="dates">dates <span class="quarto-category-count">(1)</span></div><div class="category" data-category="post">post <span class="quarto-category-count">(1)</span></div><div class="category" data-category="sklearn">sklearn <span class="quarto-category-count">(1)</span></div><div class="category" data-category="statistics">statistics <span class="quarto-category-count">(1)</span></div><div class="category" data-category="timeseries">timeseries <span class="quarto-category-count">(1)</span></div></div></div>
 <!-- main -->
 <main class="content quarto-banner-title-block column-page-left" id="quarto-document-content">
 
@@ -183,72 +183,96 @@ ul.task-list li input[type="checkbox"] {
 Title
 </th>
 <th>
+Categories
+</th>
+<th>
 Date
 </th>
 </tr>
 </thead>
 <tbody class="list">
-<tr data-index="0" data-categories="statistics" data-listing-date-sort="1703826000000" data-listing-file-modified-sort="1704113907990" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="3" data-listing-word-count-sort="438" data-listing-title-sort="survival" data-listing-filename-sort="index.qmd" onclick="href = this.querySelector('a').getAttribute('href');
+<tr data-index="0" data-categories="post" data-listing-date-sort="1705122000000" data-listing-file-modified-sort="1705425854219" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="8" data-listing-word-count-sort="1469" data-listing-title-sort="Indianapolis: Crime Downtown" data-listing-filename-sort="index.qmd" onclick="href = this.querySelector('a').getAttribute('href');
+ if (href) { window.location=href ; return false; }">
+<td>
+<a href="./posts/indy/index.html" class="title listing-title">Indianapolis: Crime Downtown</a>
+</td>
+<td>
+<span class="listing-categories">post</span>
+</td>
+<td>
+<span class="listing-date">Jan 13, 2024</span>
+</td>
+</tr>
+<tr data-index="1" data-categories="statistics" data-listing-date-sort="1703826000000" data-listing-file-modified-sort="1705425538930" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="3" data-listing-word-count-sort="438" data-listing-title-sort="survival" data-listing-filename-sort="index.qmd" onclick="href = this.querySelector('a').getAttribute('href');
  if (href) { window.location=href ; return false; }">
 <td>
 <a href="./posts/survival/index.html" class="title listing-title">survival</a>
 </td>
 <td>
+<span class="listing-categories">statistics</span>
+</td>
+<td>
 <span class="listing-date">Dec 29, 2023</span>
 </td>
 </tr>
-<tr data-index="1" data-categories="sklearn,Pipeline,ColumnTransformer" data-listing-date-sort="1703653200000" data-listing-file-modified-sort="1703777399466" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="4" data-listing-word-count-sort="648" data-listing-title-sort="pipeline" data-listing-filename-sort="index.qmd" onclick="href = this.querySelector('a').getAttribute('href');
+<tr data-index="2" data-categories="code,sklearn,Pipeline" data-listing-date-sort="1703653200000" data-listing-file-modified-sort="1705425676584" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="4" data-listing-word-count-sort="648" data-listing-title-sort="pipeline" data-listing-filename-sort="index.qmd" onclick="href = this.querySelector('a').getAttribute('href');
  if (href) { window.location=href ; return false; }">
 <td>
 <a href="./posts/pipeline/index.html" class="title listing-title">pipeline</a>
 </td>
 <td>
+<span class="listing-categories">code, sklearn, Pipeline</span>
+</td>
+<td>
 <span class="listing-date">Dec 27, 2023</span>
 </td>
 </tr>
-<tr data-index="2" data-categories="code,dates,timeseries" data-listing-date-sort="1703048400000" data-listing-file-modified-sort="1703858742560" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="1" data-listing-word-count-sort="11" data-listing-title-sort="pandas" data-listing-filename-sort="index.qmd" onclick="href = this.querySelector('a').getAttribute('href');
+<tr data-index="3" data-categories="code,dates,timeseries" data-listing-date-sort="1703048400000" data-listing-file-modified-sort="1704725696609" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="1" data-listing-word-count-sort="37" data-listing-title-sort="pandas" data-listing-filename-sort="index.qmd" onclick="href = this.querySelector('a').getAttribute('href');
  if (href) { window.location=href ; return false; }">
 <td>
 <a href="./posts/pandas/index.html" class="title listing-title">pandas</a>
 </td>
 <td>
+<span class="listing-categories">code, dates, timeseries</span>
+</td>
+<td>
 <span class="listing-date">Dec 20, 2023</span>
 </td>
 </tr>
-<tr data-index="3" data-categories="LLM" data-listing-date-sort="1702702800000" data-listing-file-modified-sort="1704113880793" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="4" data-listing-word-count-sort="776" data-listing-title-sort="LLM" data-listing-filename-sort="index.qmd" onclick="href = this.querySelector('a').getAttribute('href');
+<tr data-index="4" data-categories="code,LLM" data-listing-date-sort="1702702800000" data-listing-file-modified-sort="1705425478285" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="4" data-listing-word-count-sort="776" data-listing-title-sort="LLM" data-listing-filename-sort="index.qmd" onclick="href = this.querySelector('a').getAttribute('href');
  if (href) { window.location=href ; return false; }">
 <td>
 <a href="./posts/llm/index.html" class="title listing-title">LLM</a>
 </td>
 <td>
+<span class="listing-categories">code, LLM</span>
+</td>
+<td>
 <span class="listing-date">Dec 16, 2023</span>
 </td>
 </tr>
-<tr data-index="4" data-categories="news,code,analysis" data-listing-date-sort="1701493200000" data-listing-file-modified-sort="1703777373088" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="2" data-listing-word-count-sort="275" data-listing-title-sort="docker" data-listing-filename-sort="index.qmd" onclick="href = this.querySelector('a').getAttribute('href');
+<tr data-index="5" data-categories="code,analysis" data-listing-date-sort="1701493200000" data-listing-file-modified-sort="1705425542490" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="2" data-listing-word-count-sort="275" data-listing-title-sort="docker" data-listing-filename-sort="index.qmd" onclick="href = this.querySelector('a').getAttribute('href');
  if (href) { window.location=href ; return false; }">
 <td>
 <a href="./posts/docker/index.html" class="title listing-title">docker</a>
 </td>
 <td>
+<span class="listing-categories">code, analysis</span>
+</td>
+<td>
 <span class="listing-date">Dec 2, 2023</span>
 </td>
 </tr>
-<tr data-index="5" data-categories="code" data-listing-date-sort="1701493200000" data-listing-file-modified-sort="1704112613679" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="4" data-listing-word-count-sort="727" data-listing-title-sort="airflow" data-listing-filename-sort="index.qmd" onclick="href = this.querySelector('a').getAttribute('href');
+<tr data-index="6" data-categories="code" data-listing-date-sort="1701493200000" data-listing-file-modified-sort="1704112613679" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="4" data-listing-word-count-sort="727" data-listing-title-sort="airflow" data-listing-filename-sort="index.qmd" onclick="href = this.querySelector('a').getAttribute('href');
  if (href) { window.location=href ; return false; }">
 <td>
 <a href="./posts/airflow/index.html" class="title listing-title">airflow</a>
 </td>
 <td>
+<span class="listing-categories">code</span>
+</td>
+<td>
 <span class="listing-date">Dec 2, 2023</span>
-</td>
-</tr>
-<tr data-index="6" data-categories="statistics" data-listing-date-sort="1701234000000" data-listing-file-modified-sort="1703858704401" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="1" data-listing-word-count-sort="1" data-listing-title-sort="OLS" data-listing-filename-sort="index.qmd" onclick="href = this.querySelector('a').getAttribute('href');
- if (href) { window.location=href ; return false; }">
-<td>
-<a href="./posts/ols/index.html" class="title listing-title">OLS</a>
-</td>
-<td>
-<span class="listing-date">Nov 29, 2023</span>
 </td>
 </tr>
 </tbody>

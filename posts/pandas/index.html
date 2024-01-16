@@ -189,9 +189,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 
 
-<p>Useful Pandas</p>
 <p>Grab all of the month names</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>months <span class="op">=</span> pd.date_range(<span class="st">'2020-01-01'</span>,<span class="st">'2020-12-31'</span>,freq<span class="op">=</span><span class="st">'MS'</span>).<span class="bu">map</span>(<span class="kw">lambda</span> x: x.month_name())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>pandas types to redshift schema</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>cols <span class="op">=</span> d.dtypes</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>l <span class="op">=</span> {<span class="st">'object'</span>:<span class="st">'varchar(255)'</span>, <span class="st">'int64'</span>:<span class="st">'bigint'</span>,<span class="st">'float64'</span>:<span class="st">'double precision'</span>,<span class="st">'datetime64[ns]'</span>:<span class="st">'date'</span>}</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>cols <span class="op">=</span> <span class="bu">zip</span>(cols.index, <span class="bu">map</span>(<span class="kw">lambda</span> x: l[x.name] <span class="op">+</span> <span class="st">' encode zstd'</span>, cols.values))</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>cols <span class="op">=</span> <span class="st">", "</span>.join(<span class="bu">map</span>(<span class="kw">lambda</span> x: <span class="st">' '</span>.join(x), cols))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 
 
 
