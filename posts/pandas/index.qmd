@@ -4,10 +4,19 @@ categories: ['code','dates', 'timeseries']
 date: '2023-12-20'
 ---
 
-Useful Pandas
 
 Grab all of the month names
 
 ```python
 months = pd.date_range('2020-01-01','2020-12-31',freq='MS').map(lambda x: x.month_name())
+```
+
+
+pandas types to redshift schema
+
+```python
+cols = d.dtypes
+l = {'object':'varchar(255)', 'int64':'bigint','float64':'double precision','datetime64[ns]':'date'}
+cols = zip(cols.index, map(lambda x: l[x.name] + ' encode zstd', cols.values))
+cols = ", ".join(map(lambda x: ' '.join(x), cols))
 ```

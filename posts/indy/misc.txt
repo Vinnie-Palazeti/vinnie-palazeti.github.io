@@ -1,0 +1,267 @@
+
+
+```{r}
+
+# hamilton <- get_acs(
+#   state = "IN",
+#   county = "Hamilton",
+#   geography = "tract",
+#   variables = "B01001_001E",
+#   geometry = TRUE,
+#   year = 2022
+# ) |> st_transform(crs = 4326)
+
+# carmel_points <- carmel_data |> 
+#     select(crime, LONGITUDE, LATITUDE) |>
+#     sf::st_as_sf(coords = c("LONGITUDE", "LATITUDE"), crs = 4326) |> 
+#     sf::st_transform(crs = 4326)
+
+# # hamilton |>
+# #   ggplot() + 
+# #   geom_sf() + 
+# #   geom_sf(data = carmel_points, color = alpha("red", 0.5)) +   
+# #   theme_minimal()
+
+# leaflet() |> 
+#   addProviderTiles(providers$CartoDB.Positron) |> 
+#   addCircleMarkers(
+#     data=carmel_points,
+#     radius = 1,
+#     fillOpacity = 0.5, 
+#     color='red')
+
+
+# nrow(carmel_points)
+# nrow(impd_data)
+# (nrow(carmel_points) / 100000) * 100
+
+# https://www.planning.org/greatplaces/spaces/2011/monumentcircle.htm#:~:text=The%20Circle%20is%20a%20natural,the%20Soldiers%20and%20Sailors%20Monument.
+```
+
+
+
+
+
+```{r}
+
+# ### UCR Data
+# impd_file <- files[grepl('IMPD_',files)]
+# impd_data <- read.csv(impd_file) |> mutate(crime = replace_na(CRIME, 'NA'))
+
+# head(impd_data)
+# nrow(impd_data)
+
+# impd_data |>
+#   count(crime) |> 
+#   arrange(desc(n)) |>
+#   head(10)
+
+# impd_data |>
+#   select(everything()) |>
+#   summarise_all(funs(sum(is.na(.))))
+
+# violent_crime_str <- c("ASSAULT","ROBB","RAPE","HOMICIDE")
+# impd_data$violent_crime <- sapply(test$crime, function(v) any(str_detect(v, violent_crime_str)))
+
+# impd_data <- impd_data |>
+#   filter(violent_crime == TRUE)
+
+# impd_data |>
+#   summarise(across(everything(), ~ sum(is.na(.))))
+
+# impd_data <- impd_data |> drop_na() 
+
+# impd_data |>
+#   count(crime) |> 
+#   arrange(desc(n)) 
+
+# impd_data <- impd_data |> 
+#   mutate(
+#     crime_short = case_when(
+#       str_detect(crime,"ASSAULT") ~ "Assault",
+#       str_detect(crime,"HOMICIDE") ~ "Homicide",
+#       str_detect(crime,"ROBB") ~ "Robbery",
+#       str_detect(crime,"RAPE") ~ "Rape",
+#       TRUE ~ as.character(crime)
+#   ))
+
+# points <- impd_data |> 
+#     select(crime_short, LONGITUDE, LATITUDE) |>
+#     sf::st_as_sf(coords = c("LONGITUDE", "LATITUDE"), crs = 4326) |> 
+#     sf::st_transform(crs = 4326)
+```
+
+
+
+
+
+
+
+```{r}
+# install.packages('tidycensus')
+# install.packages('tidyverse')
+# install.packages('sf')
+# install.packages('crsuggest')
+```
+
+```{r}
+
+library(tidycensus)
+library(tidyverse)
+library(crsuggest)
+library(sf)
+options(tigris_use_cache = TRUE)
+# census_api_key()
+
+library(dplyr)
+library(purrr)
+library(leaflet)
+```
+
+```{r}
+
+marion <- get_acs(
+  state = "IN",
+  county = "Marion",
+  geography = "tract",
+  variables = "B19013_001",
+  geometry = TRUE,
+  year = 2022
+)
+
+points <- read.csv(files[1]) |> 
+    select(id, lat, lng) |>
+    sf::st_as_sf(coords = c("lng", "lat"), crs = 4326) |> 
+    sf::st_transform(crs = 4326)
+
+marion |>
+  ggplot() + 
+  geom_sf() + 
+  geom_sf(data = points, color = "red") + 
+  theme_minimal()
+
+``` 
+
+
+
+
+```{r}
+# CRS used: NAD83(2011) Kansas Regional Coordinate System 
+# Zone 11 (for Kansas City)
+
+in_tracts <- map_dfr(c("IN"), ~{
+  tracts(.x, cb = TRUE, year = 2022)
+}) |> st_transform(4326)
+
+metro <- core_based_statistical_areas(cb = TRUE, year = 2020) %>%
+  filter(str_detect(NAME, "Indianapolis")) |> st_transform(4326)
+
+ggplot() + 
+  geom_sf(data = in_tracts, fill = "white", color = "grey") + 
+  geom_sf(data = metro, fill = NA, color = "red") + 
+  theme_void()
+
+in_tracts <- in_tracts[metro, ]
+
+ggplot() + 
+  geom_sf(data = in_tracts, fill = "white", color = "grey") + 
+  geom_sf(data = metro, fill = NA, color = "red") + 
+  theme_void()
+
+ggplot() + 
+  geom_sf(data = in_tracts, fill = "white", color = "grey") + 
+  geom_sf(data = metro, fill = NA, color = "red") + 
+  geom_sf(data = points, color = "red") + 
+  theme_void()
+
+
+```
+
+
+
+```{r}
+library(mapview)
+
+
+circle <- tibble(
+    longitude = c(-86.1608, -86.1608, -86.15541, -86.15541),
+    latitude = c(39.7705, 39.7665, 39.7705, 39.7665)    
+) 
+
+city_protect_indy <- tibble(
+    longitude = c(-85.95244823656743, -86.32601887766806, -86.32660942836364, -85.95807200939956, -85.95244823656743),
+    latitude = c(39.63859810688616, 39.63234728987109, 39.924062921780205, 39.92752525955417, 39.63859810688616)    
+) 
+
+city_protect_carmel <- tibble(
+    longitude = c(-86.30, -86.30, -85.93, -85.93),
+    latitude = c(39.89, 40.05, 40.05, 39.89)    
+) 
+ 
+poly <- circle |>
+  st_as_sf(coords = c("longitude", "latitude"), crs = 4326) |>
+  st_bbox() |>
+  st_as_sfc(crs = 4326)
+
+c <- data.frame(id = '1', geometry=poly)
+
+dnwtown_tracts <- paste(c(
+    'Census Tract 3910.01','Census Tract 3910.02',
+    'Census Tract 3542.01','Census Tract 3542.02', 
+    'Census Tract 3562'), ', Marion County, Indiana', sep='')
+
+downtown <- marion |>
+    filter(NAME %in% dnwtown_tracts)
+
+
+leaflet() |> 
+  addTiles() |>
+  addPolygons(data=downtown)
+
+
+leaflet() |> 
+  addTiles() |>
+  addMarkers(data=points[sample(nrow(points),100),])
+
+
+leaflet() |> 
+  addTiles() |>
+  addPolygons(lat=circle$latitude, lng=circle$longitude)  
+
+
+leaflet() |> 
+  addTiles() |>
+  addPolygons(lat=city_protect_carmel$latitude, lng=city_protect_carmel$longitude)  
+
+leaflet() |> 
+  addTiles() |>
+  addPolygons(lat=city_protect_indy$latitude, lng=city_protect_indy$longitude)  
+
+
+
+# leaflet() |> 
+#   addTiles() |>
+#   addMarkers(lat=39.975, lng=-86.129)  
+
+
+mapview(poly)
+
+
+# estimated ~375,000 people downtown
+# sum(downtown$estimate)
+
+```
+
+
+# CityProtect Data
+carmel_files <- files[grepl('agency_107282',files)]
+carmel_data <- do.call(rbind, lapply(carmel_files, function(x) read.csv(x, stringsAsFactors = FALSE))) 
+
+carmel_data <- carmel_data |>
+  distinct(id, .keep_all = TRUE) |> 
+  filter(parentIncidentType %in% c("Homicide","Robbery","Assault","Sexual Offense")) |>
+  drop_na(lat, lng) |> 
+  rename(LATITUDE=lat,LONGITUDE=lng, crime=incidentType) |>
+  filter(agencyId == "107282") |>
+  filter(crime != "SEX OFFENDER REGISTRY INVEST")
+

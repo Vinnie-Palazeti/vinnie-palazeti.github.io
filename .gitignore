@@ -8,3 +8,5 @@ _environment
 _freeze/
 /_*.local
 .env
+data/
+.Rhistory
