@@ -4,7 +4,6 @@ date: "2023-12-16"
 categories: [code,LLM]
 ---
 
-
 WIP
 
 cool package [instructor](https://jxnl.github.io/instructor/)
@@ -13,14 +12,13 @@ manual indexing was beaten out of me at my first job, so when I saw this online 
 
 looks like a cool package too.
 
-```{python}
+```python
 #| eval: false
 from dotenv import load_dotenv
 load_dotenv('../.env')
 ```
 
-
-```{python}
+```python
 #| eval: false
 from io import StringIO
 from typing import Annotated, Any, Iterable
@@ -106,7 +104,7 @@ def extract_table(url: str) -> Iterable[Table]:
 
 
 
-```{python}
+```python
 #| eval: false
 url = "https://a.storyblok.com/f/47007/2400x2000/bf383abc3c/231031_uk-ireland-in-three-charts_table_v01_b.png"
 tables = extract_table(url)
