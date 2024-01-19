@@ -6,9 +6,12 @@ categories: [code, survival]
 
 A few years ago the Standford ML Group released [NGBoost](https://stanfordmlgroup.github.io/projects/ngboost/).
 
-They use the "Natural Gradient", which to be honest I don't yet fully understand.
+They describe it as:
 
-As they put it:
+>NGBoost generalizes gradient boosting to probabilistic regression by treating the parameters of the conditional distribution as targets for a multiparameter boosting algorithm.
+
+...
+
 >Our key innovation is in employing the natural gradient to perform gradient boosting by casting it as a problem of determining the parameters of a probability distribution.
 
 With this learned distribution, you can get the mean & stdev at a given value. Also, it allows you to model the joint distribution of two variables.
