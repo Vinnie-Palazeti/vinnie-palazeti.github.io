@@ -16,7 +16,7 @@ They describe it as:
 
 With this learned distribution, you can get the mean & stdev at a given value. Also, it allows you to model the joint distribution of two variables.
 
-Here, I am using the veterans dataset. `ngb.pred_dist` returns a scipy.stats object, so it has methods of like .cdf()
+Here, I am using the veterans dataset. `ngb.pred_dist` returns a scipy.stats object, so it has the method .cdf()
 
 ```{python}
 import pandas as pd
