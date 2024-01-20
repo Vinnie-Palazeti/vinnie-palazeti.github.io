@@ -2,6 +2,7 @@
   {
     "listing": "/index.html",
     "items": [
+      "/posts/consumer_sent/index.html",
       "/posts/NGBoost/index.html",
       "/posts/indy/index.html",
       "/posts/pipeline/index.html",
