@@ -1,0 +1,54 @@
+---
+title: "Multiple Virtual Environments"
+date: "2024-01-20"
+---
+
+Quarto does not allow multiple virtual environments to be used in a single `quarto render` call.
+
+To work around this, I wrote a script that renders each index.qmd in my posts directory. It sets the QUARTO_PYTHON variable for each render.
+
+I used pyenv. The paths to the python executable is in the hidden .pyenv directory. Pyenv caches the package downloads, which saves a lot of space. Naming the environment the same as the post allows me to use the shared name as the dictonary key. 
+
+Finally, render the whole project. I use `freeze: true` in the posts/_metadata.yml, so this last render does not affect what was just accomplished. 
+
+(also, my initials are mvp. I swear I am not that conceded)
+
+```python
+import os
+import subprocess
+
+envs = {
+    'base':"/Users/mvp/.pyenv/versions/quarto_base/bin/python",
+    'NGBoost':"/Users/mvp/.pyenv/versions/NGBoost/bin/python",
+    'llm':"/Users/mvp/.pyenv/versions/llm/bin/python",
+}
+
+cwd = os.getcwd()
+dir = os.path.join(cwd,'posts')
+paths = [i for i in os.listdir(dir) if '.' not in i]
+
+for path in paths:
+    if path in envs.keys():
+        python_v = envs[path]
+    else:
+        python_v = envs['base']
+    print(f'rendering...')
+    process = f'QUARTO_PYTHON={python_v} quarto render posts/{path}/index.qmd'
+    print(f'cmd: {process}')
+    result = subprocess.run(process, shell=True)
+
+subprocess.run("quarto render", shell=True)
+```
+
+I tried to use the pre-render argument in _quarto.yml, but I would get this weird error where the render would stall. 
+
+```yaml
+project:
+  type: website
+  pre-render: multienv.py
+
+website:
+  title: Posts
+  navbar:
+  ...
+```

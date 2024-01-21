@@ -1,0 +1,18 @@
+---
+title: Consumer Sentiment
+date: '2023-12-01'
+categories: [post]
+---
+
+
+<!-- https://www.linkedin.com/pulse/why-so-glum-whats-changed-scott-brave-xarcc/ -->
+michigan consumer survey
+shed?
+conference board consumer confidence index
+
+fit regression over time
+what do the coefficients look like?
+
+```python
+
+```
