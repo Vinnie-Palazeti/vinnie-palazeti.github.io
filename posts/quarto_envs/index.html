@@ -150,7 +150,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <div class="quarto-title-banner page-columns page-full">
     <div class="quarto-title column-body">
       <h1 class="title">Multiple Virtual Environments</h1>
-                      </div>
+                                <div class="quarto-categories">
+                <div class="quarto-category">post</div>
+                <div class="quarto-category">quarto</div>
+              </div>
+                  </div>
   </div>
     
   
@@ -187,7 +191,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <p>Quarto does not allow multiple virtual environments to be used in a single <code>quarto render</code> call.</p>
 <p>To work around this, I wrote a script that renders each index.qmd in my posts directory. It sets the QUARTO_PYTHON variable for each render.</p>
-<p>I used pyenv. The paths to the python executable is in the hidden .pyenv directory. Pyenv caches the package downloads, which saves a lot of space. Naming the environment the same as the post allows me to use the shared name as the dictonary key.</p>
+<p>I use pyenv. The paths to the python executable is in the hidden .pyenv directory. Pyenv caches the package downloads, which saves a lot of space. Naming the environment the same as the post allows me to use the shared name as the dictonary key.</p>
 <p>Finally, render the whole project. I use <code>freeze: true</code> in the posts/_metadata.yml, so this last render does not affect what was just accomplished.</p>
 <p>(also, my initials are mvp. I swear I am not that conceded)</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> os</span>
@@ -199,21 +203,20 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>    <span class="st">'llm'</span>:<span class="st">"/Users/mvp/.pyenv/versions/llm/bin/python"</span>,</span>
 <span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>}</span>
 <span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>cwd <span class="op">=</span> os.getcwd()</span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="bu">dir</span> <span class="op">=</span> os.path.join(cwd,<span class="st">'posts'</span>)</span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>paths <span class="op">=</span> [i <span class="cf">for</span> i <span class="kw">in</span> os.listdir(<span class="bu">dir</span>) <span class="cf">if</span> <span class="st">'.'</span> <span class="kw">not</span> <span class="kw">in</span> i]</span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> path <span class="kw">in</span> paths:</span>
-<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> path <span class="kw">in</span> envs.keys():</span>
-<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>        python_v <span class="op">=</span> envs[path]</span>
-<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span>:</span>
-<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>        python_v <span class="op">=</span> envs[<span class="st">'base'</span>]</span>
-<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f'rendering...'</span>)</span>
-<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>    process <span class="op">=</span> <span class="ss">f'QUARTO_PYTHON=</span><span class="sc">{</span>python_v<span class="sc">}</span><span class="ss"> quarto render posts/</span><span class="sc">{</span>path<span class="sc">}</span><span class="ss">/index.qmd'</span></span>
-<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f'cmd: </span><span class="sc">{</span>process<span class="sc">}</span><span class="ss">'</span>)</span>
-<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>    result <span class="op">=</span> subprocess.run(process, shell<span class="op">=</span><span class="va">True</span>)</span>
-<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a>subprocess.run(<span class="st">"quarto render"</span>, shell<span class="op">=</span><span class="va">True</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="bu">dir</span> <span class="op">=</span> os.path.join(os.getcwd(),<span class="st">'posts'</span>) </span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>paths <span class="op">=</span> [i <span class="cf">for</span> i <span class="kw">in</span> os.listdir(<span class="bu">dir</span>) <span class="cf">if</span> <span class="st">'.'</span> <span class="kw">not</span> <span class="kw">in</span> i]</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> path <span class="kw">in</span> paths:</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> path <span class="kw">in</span> envs.keys():</span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>        python_v <span class="op">=</span> envs[path]</span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span>:</span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>        python_v <span class="op">=</span> envs[<span class="st">'base'</span>]</span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f'rendering...'</span>)</span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>    process <span class="op">=</span> <span class="ss">f'QUARTO_PYTHON=</span><span class="sc">{</span>python_v<span class="sc">}</span><span class="ss"> quarto render posts/</span><span class="sc">{</span>path<span class="sc">}</span><span class="ss">/index.qmd'</span></span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f'cmd: </span><span class="sc">{</span>process<span class="sc">}</span><span class="ss">'</span>)</span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>    result <span class="op">=</span> subprocess.run(process, shell<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>subprocess.run(<span class="st">"quarto render"</span>, shell<span class="op">=</span><span class="va">True</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>I tried to use the pre-render argument in _quarto.yml, but I would get this weird error where the render would stall.</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">project</span><span class="kw">:</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">type</span><span class="kw">:</span><span class="at"> website</span></span>
@@ -223,6 +226,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">title</span><span class="kw">:</span><span class="at"> Posts</span></span>
 <span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">navbar</span><span class="kw">:</span></span>
 <span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="at">  ...</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>In theory this should work with just one <code>quarto render</code> (if I removed the last subprocess.run). I couldn’t get it to run, so I just use <code>python multienv.py</code></p>
 
 
 
