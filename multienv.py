@@ -5,10 +5,10 @@ envs = {
     'base':"/Users/mvp/.pyenv/versions/quarto_base/bin/python",
     'NGBoost':"/Users/mvp/.pyenv/versions/NGBoost/bin/python",
     'llm':"/Users/mvp/.pyenv/versions/llm/bin/python",
+    'consumer_sent':"/Users/mvp/.pyenv/versions/consumer_sent/bin/python",
 }
 
-cwd = os.getcwd()
-dir = os.path.join(cwd,'posts')
+dir = os.path.join(os.getcwd(),'posts') 
 paths = [i for i in os.listdir(dir) if '.' not in i]
 
 for path in paths:

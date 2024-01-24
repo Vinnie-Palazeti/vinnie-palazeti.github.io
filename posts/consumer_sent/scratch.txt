@@ -1,0 +1,86 @@
+
+
+<!-- 
+
+
+```{python}
+f = 'Index ~ Q("Unemployment Rate") + CPI_pct_change + DFF + RDI_pct_change_24'
+
+mod = smf.ols(formula=f, data=d.query('date < "2007-01-01"')).fit()
+```
+
+```{python}
+d['Expected'] = mod.predict(d)
+d['Residuals'] = d['Expected'] - d['Index']
+```
+
+```{python}
+fig = px.line(d.query('date>="2004"').query('date<="2014"'), x='date',y=['Index','Expected'])
+fig.add_vrect(
+    x0='2007-12-01', x1='2010-10-01', 
+    y0=0.02, y1=0.98,
+    line_width=0, fillcolor="red", opacity=0.2,
+)
+fig.update_layout(showlegend=False, yaxis_title=None)
+fig.update_layout(title="Decoupling <br><sup>Actual & Expected Gap</sup>",)
+fig.show()
+```
+
+
+
+
+```{python}
+# fit_dates = pd.date_range(start='1990-01-01',end='2019-12-01',freq='YE')
+
+# param_list = []
+# for fdate in fit_dates:
+#     d = mich.merge(fred, on = 'date', how='left').merge(bls, on = 'date', how='left').dropna()
+#     d = d[[i for i in d.columns if 'Unnamed:' not in i]].reset_index(drop=True)
+
+#     f = 'Index ~ Q("Unemployment Rate") + CPI_pct_change + DFF'
+#     mod = smf.ols(formula=f, data=d.query(f'date < "{fdate}"')).fit()
+
+#     params = (
+#         mod
+#         .params
+#         .to_frame().T
+#         .assign(date = fdate)
+#     )
+#     param_list.append(params)
+
+```
+
+
+```{python}
+
+def stand(x):
+    return (x - x.min()) / (x.max() - x.min())
+
+d['DFF_stand'] = stand(d['DFF'])
+d['CPI_stand'] = stand(d['CPI_pct_change'])
+d['Unemployment_Rate_stand'] = stand(d['Unemployment Rate'])
+
+
+fig = px.line(d, x='date',y=['Unemployment_Rate_stand','CPI_stand','DFF_stand'])
+fig.show()
+
+``` 
+
+
+```{python}
+params = pd.concat(param_list)
+cols = ['DFF','CPI_pct_change','Q("Unemployment Rate")']
+
+mean = params[cols].mean().values
+stdev = params[cols].std().values
+params[cols] = (params[cols] - mean) / stdev
+
+fig = px.line(params, x='date',y=cols)
+fig.show()
+
+
+paper_bgcolor='rgba(0,0,0,0)',
+plot_bgcolor='rgba(0,0,0,0)',   
+```
+
+-->

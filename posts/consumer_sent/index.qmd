@@ -1,18 +1,337 @@
 ---
 title: Consumer Sentiment
-date: '2023-12-01'
-categories: [post]
+subtitle: Who the hell knows
+date: '2024-01-24'
+categories: [post, economics, vibe-cession]
+toc: true
 ---
 
-
-<!-- https://www.linkedin.com/pulse/why-so-glum-whats-changed-scott-brave-xarcc/ -->
+<!-- 
+Notes:
+https://www.linkedin.com/pulse/why-so-glum-whats-changed-scott-brave-xarcc/
 michigan consumer survey
 shed?
 conference board consumer confidence index
+https://twitter.com/gabriel_zucman/status/1731734909692063916
+https://realtimeinequality.org/
+-->
 
-fit regression over time
-what do the coefficients look like?
+There has been an ongoing twitter conversation concerning the Michigan Consumer Sentiment Survey. The gap between the Actual & "Expected" survey index has grown too large, and people are searching for an explanation. The Expected index is determined by using economic indicators in a linear regression model. 
 
-```python
+From what I can tell, there are two main args: **Vibe-cession** & **Economy-bad**
 
+The main vibe-cession theorist [Will Stancil](https://twitter.com/whstancil) has suggested that this divergence is due to negative media bias & leftist doomerism. 
+
+Opposing view points have come from [Guy Berger](https://twitter.com/EconBerger), [Matt Bruenig](https://twitter.com/MattBruenig), and [Gabrial Zucman](https://twitter.com/gabriel_zucman), who have suggested the decrease in Real Income (Overall, Disposable, Excluding Transfers, etc) has negativly^[Economy-bad] impacted consumer sentiment. 
+
+The economist [Matt Darling](https://x.com/besttrousers) has [pushed back](https://x.com/besttrousers/status/1748438528889901499?s=20) on the opposing position. In the linked tweet, Darling asks Bruenig if he has looked at the Actual - Expected Index using his proposed variables. Matt (Bruenig) did not respond.
+
+I decided to take a look. I use the suggested variables from Darling, Berger, & Zucman to model the Michigan Survey Consumer Index.
+
+I have not seen an index or measure from Will, so I am not sure how to test his hypothesis.
+
+```{python}
+#| echo: false
+
+from dotenv import load_dotenv
+load_dotenv('../.env')
+
+from utils import fred_series, ma_pct, bls_series
+
+import pandas as pd
+import requests
+import json
+import os
+import plotly.express as px
+from functools import reduce
+import statsmodels.formula.api as smf
+bls_key = os.environ.get("bls_key")
+fred_api_key=os.environ.get('fred_key')
 ```
+
+```{python}
+#| eval: false
+#| echo: false
+
+# LNS14000000 unemployment rate
+# 'LNS14000003': 'White',
+# 'LNS14000006': 'Black',
+# 'LNS14000009': 'Hispanic'
+# CUUR0000SA0 consumer price index
+# CES0000000001 non-farm payroll
+# LNS11300000 labor force participation rate
+# CUUR0000SA0L1E inflation rate? CPI less food & energy
+# LNU04000000 unemployment rate?
+
+url = f'https://api.bls.gov/publicAPI/v2/timeseries/data/?registrationkey={bls_key}'
+
+series_dict = {
+    'LNS14000000': 'Unemployment Rate',
+    'CUUR0000SA0': 'CPI',
+}
+date_range = list(range(1980,2023,10))
+date_range = [(start, stop) for start,stop in zip(date_range[:-1], date_range[1:])] + [(2020,2023)]
+
+all_bls = bls_series(series_dict, url, date_range)
+
+all_bls['CPI_pct_change'] = all_bls.CPI.pct_change(periods=12) * 100
+all_bls = all_bls.dropna()
+all_bls.to_csv('data/all_bls.csv')
+```
+
+
+```{python}
+#| eval: false
+#| echo: false
+
+DFF = fred_series('DFF',fred_api_key)
+# RPI
+# RPI = fred_series('A229RX0',fred_api_key, 'RPI')
+RDI = fred_series('DSPIC96', fred_api_key,'RDI')
+RDI = ma_pct(RDI,'RDI')
+
+RPI = fred_series('RPI', fred_api_key)
+RPI = ma_pct(RPI, 'RPI' )
+
+RPI_Exc = fred_series('W875RX1', fred_api_key, 'RPI_ET')
+RPI_Exc = ma_pct(RPI_Exc, 'RPI_ET' )
+
+fred =  reduce(lambda x, y: pd.merge(x, y, on = 'date'), [DFF, RDI, RPI, RPI_Exc])
+
+fred['RPI_diff'] = fred['RPI'] - fred['RPI_ET']
+fred['RPI_diff_12'] =fred['RPI_pct_change_12'] - fred['RPI_ET_pct_change_12']
+fred['RPI_diff_24'] =fred['RPI_pct_change_24'] - fred['RPI_ET_pct_change_24']
+fred['RPI_diff_36'] = fred['RPI_pct_change_36'] - fred['RPI_ET_pct_change_36']
+
+fred.to_csv('data/fred.csv')
+```
+
+```{python}
+#| eval: false
+#| echo: false
+
+mich = pd.read_csv('data/sca-table1.csv', skiprows=1, usecols=['Month','Year','Index'])
+mich['date'] = pd.to_datetime(mich['Year'].astype(str) + mich['Month'].astype(str), format='%Y%m')
+
+mich.to_csv('data/mich.csv')
+```
+
+
+```{python}
+#| echo: false
+
+# read in data
+mich = pd.read_csv('data/mich.csv', index_col=0)
+fred = pd.read_csv('data/fred.csv', index_col=0)
+bls = pd.read_csv('data/all_bls.csv', index_col=0)
+d = mich.merge(fred, on = 'date', how='left').merge(bls, on = 'date', how='left').dropna().reset_index(drop=True)
+```
+
+
+# Model
+
+The first three variables I used were suggested by [Matt Darling](https://x.com/besttrousers/status/1748471711152959548?s=20)
+
+* Unemployment Rate
+* CPI (12 month rolling percent change)
+* Interest Rate
+
+I also attempted to include a few variables from the economy-bad side of the debate. 
+
+[Guy Berger](https://x.com/EconBerger/status/1732478913857863738?s=20) used Real Personal Income with various annualized change adjustments, and [Gabriel Zucman](https://x.com/gabriel_zucman/status/1731730015786586475?s=20) suggested Real Disposable Income.
+
+The two variables I tested were:
+
+* Real Personal Income (24 month percent change)
+* Real Disposable Income (24 month percent change)
+
+RDI gave a better^[AIC,BIC,& R^2] overall fit, so I went with that one. The results are similar with or without these extra variables (more on that below).
+
+The model is fit on data prior to 2020.
+
+```{python}
+#| echo: false
+
+f = 'Index ~ Q("Unemployment Rate") + CPI_pct_change + DFF + RDI_pct_change_24'
+
+mod = smf.ols(formula=f, data=d.query('date < "2020-01-01"')).fit()
+```
+
+```{python}
+#| echo: false
+
+d['Expected'] = mod.predict(d)
+d['Residuals'] = d['Expected'] - d['Index']
+```
+
+<!--  
+Maybe we are only interested in the Expectation, but it is funny to look at the inner workings of the model. 
+
+```{python}
+mod.summary()
+```
+
+-->
+
+# Expected vs Actual
+
+This is a plot of the Actual & Expected Consumer Index.
+
+```{python}
+#| echo: false
+
+fig = px.line(d, x='date',y=['Index','Expected'])
+fig.update_layout(
+    yaxis_title=None,
+    title="Actual & Expected Survey Index"
+    )
+fig.show()
+```
+
+<br>
+
+This is the money shot. The vibe-cession discourse boils down to figuring out what is causing this divergence between consumer sentiment & economic indicators. 
+
+<br>
+
+```{python}
+#| echo: false
+
+fig = px.line(d.query('date>="2015"'), x='date',y=['Index','Expected'])
+fig.add_vrect(
+    x0='2022-03-01', x1='2023-12-01', 
+    y0=0.02, y1=0.98,
+    line_width=0, fillcolor="red", opacity=0.2, name='danger zone'
+)
+fig.update_layout(showlegend=False, yaxis_title=None)
+fig.update_layout(title="Decoupling <br><sup>Actual & Expected Gap</sup>", margin=dict(t=50))
+fig.show()
+```
+
+<br>
+
+Including the Real Income reduces the residual by about 15%, but it does not close the gap entirely. So, the opposing view does not totally explain the divergence. 
+
+If we look at the Residuals (Actual - Expected) over time, we are lead to an interesting result.
+
+<br>
+
+```{python}
+#| echo: false
+
+fig = px.line(d, x='date',y=['Residuals'])
+fig.update_layout(title="Residuals <br><sup>Actual - Expected</sup>",)
+fig.update_layout(showlegend=False, yaxis_title=None, margin=dict(t=50))
+fig.show()
+```
+
+<br>
+
+A large gap in Consumer Sentiment has happened in the recent past. The 2008 financial crisis caused a similar divergence in actual vs expected. 
+
+<br>
+
+```{python}
+#| echo: false
+
+fig = px.line(d.query('date>"2005"'), x='date',y=['Residuals'])
+fig.add_vrect(
+    x0='2007-12-01', x1='2010-10-01', 
+    y0=0.02, y1=0.98,
+    line_width=0, fillcolor="red", opacity=0.2,
+)
+fig.add_vrect(
+    x0='2022-03-01', x1='2023-12-01', 
+    y0=0.02, y1=0.98,
+    line_width=0, fillcolor="red", opacity=0.2, name='danger zone'
+)
+fig.update_layout(title="Divergences <br><sup>Economic Shocks & Residuals</sup>",)
+fig.update_layout(showlegend=False, yaxis_title=None, margin=dict(t=50))
+fig.show()
+```
+
+<br>
+
+This gap was in the opposite direction, i.e. Consumer Sentiment was **lower** that the model would estimate.
+
+<br>
+
+```{python}
+#| echo: false
+
+fig = px.line(d.query('date>="2004"').query('date<="2014"'), x='date',y=['Index','Expected'])
+fig.add_vrect(
+    x0='2007-12-01', x1='2010-10-01', 
+    y0=0.02, y1=0.98,
+    line_width=0, fillcolor="red", opacity=0.2,
+)
+fig.update_layout(showlegend=False, yaxis_title=None, margin=dict(t=50))
+fig.update_layout(title="2008 Financial Crisis <br><sup>Actual & Expected Gap</sup>",)
+fig.show()
+```
+
+
+# Conclusion
+
+From this modeling exercise, it looks like economic shocks can result in large residuals. 
+
+These time periods are irregular economic circumstances, so it's intuitive, to me at least, that the normal economic indicators might not explain sentiment very well.
+
+
+<br><br>
+
+---
+
+
+# Appendix
+
+<br><br>
+
+```{python}
+#| echo: false
+
+fig = px.line(d, x='date',y=['Unemployment Rate'], title='Unemployment Rate')
+fig.update_layout(showlegend=False, yaxis_title=None)
+fig.show()
+```
+
+<br><br>
+
+```{python}
+#| echo: false
+
+fig = px.line(d, x='date',y=['CPI_pct_change'], title='CPI 12-Month Percent Change')
+fig.update_layout(showlegend=False, yaxis_title=None)
+fig.show()
+```
+
+<br><br>
+
+```{python}
+#| echo: false
+
+fig = px.line(d, x='date',y=['DFF'], title='Federal Interest Rate')
+fig.update_layout(showlegend=False, yaxis_title=None,)
+fig.show()
+```
+
+<br><br>
+
+```{python}
+#| echo: false
+
+fig = px.line(d, x='date',y=['RDI_pct_change_24'], title='Real Disposable Income (24 Month Percent Change)')
+fig.update_layout(showlegend=False, yaxis_title=None,)
+fig.show()
+```
+
+<br><br>
+
+```{python}
+#| echo: false
+
+fig = px.line(d, x='date',y=['RPI_pct_change_24'], title='Real Personal Income (24 Month Percent Change)')
+fig.update_layout(showlegend=False, yaxis_title=None,)
+fig.show()
+```
+
