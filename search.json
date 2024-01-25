@@ -39,7 +39,35 @@
     "href": "posts/consumer_sent/index.html",
     "title": "Consumer Sentiment",
     "section": "",
-    "text": "There has been an ongoing twitter conversation concerning the Michigan Consumer Sentiment Survey. The gap between the Actual & “Expected” survey index has grown too large, and people are searching for an explanation. The Expected index is determined by using economic indicators in a linear regression model.\nFrom what I can tell, there are two main args: Vibe-cession & Economy-bad\nThe main vibe-cession theorist Will Stancil has suggested that this divergence is due to negative media bias & leftist doomerism.\nOpposing view points have come from Guy Berger, Matt Bruenig, and Gabrial Zucman, who have suggested the decrease in Real Income (Overall, Disposable, Excluding Transfers, etc) has negativly1 impacted consumer sentiment.\nThe economist Matt Darling has pushed back on the opposing position. In the linked tweet, Darling asks Bruenig if he has looked at the Actual - Expected Index using his proposed variables. Matt (Bruenig) did not respond.\nI decided to take a look. I use the suggested variables from Darling, Berger, & Zucman to model the Michigan Survey Consumer Index.\nI have not seen an index or measure from Will, so I am not sure how to test his hypothesis."
+    "text": "There has been an ongoing twitter conversation concerning the Michigan Consumer Sentiment Survey. The gap between the Actual & “Expected” survey index has grown too large, and people are searching for an explanation. The Expected index is determined by using economic indicators in a linear regression model.\nFrom what I can tell, there are two main args: Vibe-cession & Economy-bad\nThe main vibe-cession theorist Will Stancil has suggested that this divergence is due to negative media bias & leftist doomerism.\nOpposing view points have come from Guy Berger, Matt Bruenig, and Gabrial Zucman, who have suggested the decrease in Real Income (Overall, Disposable, Excluding Transfers, etc) has negativly1 impacted consumer sentiment.\nThe economist Matt Darling has pushed back on the opposing position. In the linked tweet, Darling asks Bruenig if he has looked at the Actual - Expected Index using his proposed variables. Matt (Bruenig) did not respond.\nI decided to take a look. I use the suggested variables from Darling, Berger, & Zucman to model the Michigan Survey Consumer Index. I have not seen an index or measure from Will, so I am not sure how to test his hypothesis.\nFirst I take a look at the monthly data, then I group by year."
+  },
+  {
+    "objectID": "posts/consumer_sent/index.html#expected-vs-actual",
+    "href": "posts/consumer_sent/index.html#expected-vs-actual",
+    "title": "Consumer Sentiment",
+    "section": "Expected vs Actual",
+    "text": "Expected vs Actual\nThis is a plot of the Actual & Expected Consumer Index.\n\n\n                                                \n\n\n\nThis is the money shot. The vibe-cession discourse boils down to figuring out what is causing this divergence between consumer sentiment & economic indicators.\n\n\n\n                                                \n\n\n\nIncluding the Real Income reduces the residual by about 15%, but it does not close the gap entirely. So, using this framework, the opposing view does not totally explain the divergence.\nIf we look at the Residuals (Actual - Expected) over time, we are lead to an interesting result.\n\n\n\n                                                \n\n\n\nA large gap in Consumer Sentiment has happened in the recent past. The 2008 financial crisis caused a similar divergence in actual vs expected.\n\n\n\n                                                \n\n\n\nThis gap was in the opposite direction, i.e. Consumer Sentiment was lower that the model would estimate."
+  },
+  {
+    "objectID": "posts/consumer_sent/index.html#results",
+    "href": "posts/consumer_sent/index.html#results",
+    "title": "Consumer Sentiment",
+    "section": "Results",
+    "text": "Results\nWith this setup, it looks like economic shocks can result in large residuals.\nThese time periods are irregular economic circumstances, so it’s intuitive, to me at least, that the normal economic indicators might not explain sentiment very well."
+  },
+  {
+    "objectID": "posts/consumer_sent/index.html#unemployment-vs-rdi",
+    "href": "posts/consumer_sent/index.html#unemployment-vs-rdi",
+    "title": "Consumer Sentiment",
+    "section": "Unemployment vs RDI",
+    "text": "Unemployment vs RDI\nThe residual gap is caused by including Unemployment in the model. This is clear if we fit a model with only Unemployment Rate.\n\n\n                                                \n\n\n\nOn the opposite end, Real Disposable Income is the main downward driver. In terms of information about consumer sentiment, the variable RDI_pct_change_24 has the slight edge over Unemployment Rate. The former has a higher R^2 & lower AIC and BIC."
+  },
+  {
+    "objectID": "posts/consumer_sent/index.html#results-1",
+    "href": "posts/consumer_sent/index.html#results-1",
+    "title": "Consumer Sentiment",
+    "section": "Results",
+    "text": "Results\nI did not rehash the idea here, but I still think the economic shock theory is a good one.\nOverall, low Unemployment has a positive impact on sentiment, while diminishing RDI has a negative one.\nI think it’s plausible that such a drastic decrease in Real Disposable Income (the largest recorded in our data) could be playing a large role than we are unable to measure appropriately.\nHonestly, this graph is wild."
   },
   {
     "objectID": "posts/consumer_sent/index.html#footnotes",
