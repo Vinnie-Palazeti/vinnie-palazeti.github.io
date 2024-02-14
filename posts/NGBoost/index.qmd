@@ -1,8 +1,15 @@
 ---
-title: Ngboost
-date: '2024-01-18'
+title: Survival & Ngboost
+date: '2024-02-14'
 categories: [code, survival]
+toc: true
 ---
+
+I'm interested in tree-based models' ability to estimate nonlinear effects & interactions not specified in the design matrix. 
+
+Being interested in effect measurement, in the way stats twitter is, seems to be similar to valuing predictive performance, like my prior positions at gambling start-ups were.
+
+The model doesn't matter. The ability to estimate the effect does. So why not use trees?
 
 A few years ago the Standford ML Group released [NGBoost](https://stanfordmlgroup.github.io/projects/ngboost/).
 
@@ -16,14 +23,18 @@ They describe it as:
 
 With this learned distribution, you can get the mean & stdev at a given value. Also, it allows you to model the joint distribution of two variables.
 
+## Veterans
+
 Here, I am using the veterans dataset. `ngb.pred_dist` returns a scipy.stats object, so it has the method .cdf()
 
 ```{python}
 import pandas as pd
 import numpy as np
 from ngboost import NGBSurvival
-from ngboost.distns import LogNormal
+from ngboost.distns import LogNormal, Gamma, Laplace
 import plotly.express as px
+import warnings
+warnings.filterwarnings('ignore')
 
 d = pd.read_csv('veteran.csv')
 
@@ -47,3 +58,115 @@ est_times = (
 fig = px.line(est_times, x='time', y=['trt1','trt2'])
 fig.show()
 ```
+
+
+## Simulation
+
+I've adapted this [simulation code](https://stats.stackexchange.com/questions/603395/simulating-survival-times) from [PhDemetri](https://twitter.com/PhDemetri).
+
+```{python}
+from numpy import exp as exp
+from scipy.stats import norm, binom, weibull_min, uniform
+from scipy.optimize import brentq
+from lifelines import CoxPHFitter
+
+np.random.seed(0)
+
+N = 25000
+age = norm.rvs(size=N)
+sex = binom.rvs(1, 0.5, size=N)
+weight = norm.rvs(size=N)
+X = np.vstack([age,sex,weight]).T
+beta = [1, 0.15, 0.325]
+xb = X @ beta
+
+finv = lambda x, u, xb: (1 - weibull_min.cdf(x, c=4, scale=5))**(exp(xb)) - u
+
+failure_times = np.zeros(N)
+censor_times = np.zeros(N)
+
+for i in range(N):
+  uu = uniform.rvs(size=1)
+  cc = uniform.rvs(size=1)
+  failure_times[i] = brentq(finv, 0, 20, args=(uu, xb[i]))
+  censor_times[i] = brentq(finv, 0, 20, args=(cc, xb[i]))
+
+time = np.minimum(failure_times, censor_times)
+event = 1*(failure_times<censor_times)
+```
+
+Next we fit the Cox Proportional Hazard model to the simulated data.
+
+```{python}
+model_data = pd.DataFrame({'time':time,'event':event,'age':age,'sex':sex,'weight':weight})
+
+cph = CoxPHFitter().fit(model_data, duration_col='time', event_col='event', formula="age + sex + weight");
+```
+
+The true & estimated survival curves are overlapping. Nice.
+
+```{python}
+newdata = pd.DataFrame({'age':0, 'sex':0,'weight':0}, index=[0])
+
+preds = (
+  cph.predict_survival_function(newdata)
+  .reset_index()
+  .rename(columns={'index':'time',0:'estimated'})
+  .assign(
+    estimated = lambda df: 1-df.estimated,
+    truth = lambda df: weibull_min.cdf(df.time, c=4, scale=5)
+  )
+)
+
+fig = px.scatter(
+  preds,
+  x = 'time',
+  y=['estimated','truth'],
+  title = 'Estimated Survival Time'
+)
+fig.show()
+```
+
+
+NGBoost doesn't currently have an implementation of the Weibull Distribution. The current list of distributions can be found [here](https://github.com/stanfordmlgroup/ngboost/tree/master/ngboost/distns).
+
+Though, the authors of the package provide an example of how to implement a distribution [here](https://stanfordmlgroup.github.io/ngboost/5-dev.html). 
+
+
+```{python}
+X = model_data[['age','sex','weight']].values
+T = model_data[['time']].values
+E = model_data[['event']].values
+
+ngb = NGBSurvival(Dist=LogNormal, verbose_eval=40, n_estimators=300).fit(X, T, E)
+```
+
+```{python}
+dist = ngb.pred_dist([[0,0,0],[0,1,0]])
+
+estimated = (
+    pd.DataFrame(
+        [np.concatenate([[t], dist.cdf(t)]) for t in np.linspace(0, 12, 100)],
+        columns=['time','estimated_s0','estimated_s1']
+    )
+)
+
+fig = px.line(estimated, x='time', y=['estimated_s0','estimated_s1'], title='NGBoost Survival Curves')
+fig.show()
+```
+
+
+NGBoost's estimated values are derived from a different distribution, but they look good nonetheless.
+
+```{python}
+dist = ngb.pred_dist([[0,0,0]])
+preds['ngboost (lognormal)'] = dist.cdf(preds['time'].values.reshape(-1,1)).ravel()
+
+px.scatter(
+  preds,
+  x = 'time',
+  y=['ngboost (lognormal)','estimated','truth'],
+  title = 'Estimated Survival Time'
+).show()
+```
+

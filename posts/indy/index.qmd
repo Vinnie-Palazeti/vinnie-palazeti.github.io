@@ -32,10 +32,10 @@ library(tidyverse)
 library(sf)
 options(tigris_use_cache = TRUE)
 # census_api_key()
-library(dplyr)
 library(purrr)
 library(leaflet)
 library(kableExtra)
+library(dplyr)
 ```
 
 ```{r}
@@ -224,7 +224,7 @@ downtown_pop <- 45000
 ```
 
 
-# How many crimes are there per day?
+# How many crimes per day?
 
 
 There are a total of 430 violent crimes downtown in the year. That is 1.17 violent crimes per day.
@@ -234,17 +234,19 @@ There are a total of 430 violent crimes downtown in the year. That is 1.17 viole
 crime_per_day <- nrow(downtown_crime) / 365
 ```
 
-# How many crimes are there per meter^2^?
+# How many crimes per meter^2^?
 
-The total area downtown is about 10 million meters^2^. A single square meter is about 10 square feet, like a small room. There are 1.17 crimes downtown per day divided by 10 million meters^2^. That is equal to 0.0000001 crimes per day per meter^2^. 
+The total area downtown is about 10 million meters^2^. A single square meter is about 10 square feet. There are 1.17 crimes downtown per day divided by 10 million meters^2^. That is equal to 0.0000001 crimes per day per meter^2^. 
 
-Or, put another way, for any given 10x10 foot spot downtown you have a 1 in 10 million chance of being in the same spot as a violent crime.
+Or, put another way, for any given ~3x3^[correction: initally read 10x10, credit to [josiah](https://twitter.com/@josiahkeller) for this correction] foot spot downtown you have a 1 in 10 million chance of being in the same spot as a violent crime. 
 
 ```{r}
 downtown_area <- sum(downtown$area) 
 # there are 0.000000119 crimes per day per meter downtown
 # I like those odds
-(crime_per_day / downtown_area)
+crimes_per_day_per_meter2 <- (crime_per_day / downtown_area)
+
+crimes_per_day_per_meter2
 ```
 
 
@@ -305,15 +307,15 @@ circle_crime <- downtown_crime |> st_join(circle_poly, left=FALSE)
 circle_crime_per_day <- nrow(circle_crime) / 365
 ```
 
+# What if you visted downtown every day?
+
+If you lived for 80 years & visted downtown once every day, that would be roughly 29,200 visits. 
+
+After your entire life, you would have had a 0.3% chance of being in the same spot as a violent crime
 
 ```{r}
-#| echo: FALSE
-
-# nrow(circle_crime) / nrow(downtown_crime)
-
-# circle_poly$area / sum(downtown$area)
-
-# there are roughly 0.000002 crimes per day per square meter
-# circle_crime_per_day / circle_poly$area
-
+years <- 80
+total_visits <- years*365
+odds <- (total_visits * crimes_per_day_per_meter2)
+odds
 ```

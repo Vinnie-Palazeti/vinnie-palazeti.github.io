@@ -6,6 +6,7 @@ envs = {
     'NGBoost':"/Users/mvp/.pyenv/versions/NGBoost/bin/python",
     'llm':"/Users/mvp/.pyenv/versions/llm/bin/python",
     'consumer_sent':"/Users/mvp/.pyenv/versions/consumer_sent/bin/python",
+    'trees':"/Users/mvp/.pyenv/versions/trees/bin/python",
 }
 
 dir = os.path.join(os.getcwd(),'posts') 

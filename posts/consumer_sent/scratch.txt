@@ -84,3 +84,54 @@ plot_bgcolor='rgba(0,0,0,0)',
 ```
 
 -->
+
+
+
+
+
+<!-- 
+
+```{python}
+
+## the entire thing hinges on how much we believe unemployment matters
+##
+by_y = d.groupby('Year')[['Unemployment Rate', 'DFF','CPI_pct_change', 'Index', 'RDI_pct_change_24']].mean()
+
+by_y = (by_y - by_y.min()) / (by_y.max() - by_y.min())
+
+# f = 'Index ~ DFF + CPI_pct_change + RDI_pct_change_24 + Q("Unemployment Rate")'
+
+# mod = smf.ols(formula=f, data=by_y.query('Year < 2020')).fit()
+
+# print(mod.summary())
+
+# by_y['Expected'] = mod.predict(by_y)
+# by_y['Residuals'] = by_y['Expected'] - by_y['Index']
+
+# by_y = by_y.reset_index()
+
+# fig = px.line(by_y, x=by_y.index, y=by_y.columns)
+# fig.update_layout(yaxis_title=None)
+# fig.show()
+
+fig = px.line(by_y, x=by_y.index, y=['Index','RDI_pct_change_24'])
+fig.update_layout(yaxis_title='Normalized Scale')
+fig.update_layout(title="Consumer Sentiment vs Real Disposable Income")
+fig.show()
+
+# fig = px.line(by_y, x='Year', y=['Residuals'])
+# fig.update_layout(title="Residuals <br><sup>Actual - Expected</sup>",)
+# fig.update_layout(showlegend=False, yaxis_title=None, margin=dict(t=50))
+# fig.show()
+
+# fig = px.line(by_y, x='Year',y=['Index','Expected'])
+# fig.update_layout(
+#     yaxis_title=None,
+#     title="Actual & Expected Survey Index"
+#     )
+# fig.show()
+
+```
+
+ -->
+

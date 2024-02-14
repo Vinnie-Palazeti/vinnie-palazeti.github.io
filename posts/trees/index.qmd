@@ -1,0 +1,202 @@
+---
+title: Trees
+subtitle: What's up with them
+date: '2024-02-10'
+categories: [post, statistics]
+toc: true
+---
+
+Trees purportedly have the ability to estimate effects (nonlinear, quadratic, etc.) not explicitly stated in the design matrix. I've regurgitated this assertion in an several interviews. I probably should see if it's true.
+
+Here are the libraries I will use. Minus marginaleffects, which would have made this process a lot easier. 
+
+```{python}
+import numpy as np
+import pandas as pd
+import plotly.express as px
+import marginaleffects as me 
+import statsmodels.formula.api as smf
+from sklearn.linear_model import LinearRegression
+from sklearn.ensemble import GradientBoostingRegressor, RandomForestRegressor
+import warnings
+warnings.filterwarnings('ignore')
+```
+
+
+Here's a function to simulate random normal data with various means & standard deviations. I love goofy list/dict comprehensions, so I had to thow one in.
+
+```{python}
+np.random.seed(0)
+f = lambda mu, sig, n: mu + sig * np.random.normal(size=n)
+
+def sim_data(
+    n_samples: int = 10_000, 
+    n_features: int = 3, 
+    means: list = [-5,0,5],
+    stdevs: list = [1,1,1]
+    ) -> pd.DataFrame:
+
+    # having some fun with python folks
+    d = pd.DataFrame({
+        f'X{i+1}':f(mu=m,sig=s,n=n) 
+        for i,(m,s,n) 
+        in enumerate(zip(means, stdevs, [n_samples]*len(means)))
+    })
+    return d
+```
+
+
+## Linear 
+
+First I'll start simple with a linear effect. I create an outcome variable from my simulated data & plot the raw data of the effect I'd like to measure.
+
+```{python}
+d = sim_data()
+features = ['X1','X2','X3']
+d['Y'] = 10 + d['X1']*-2 + d['X2']*1 + d['X3']*2 + f(0, 1, d.shape[0])
+px.scatter(d, x='X1', y='Y', title='Simulated X & derived Y').show()
+```
+
+
+Each model seems to recover the effect fairly well. I am holding the other variables, X2 & X3, at there average level.
+
+```{python}
+# damn I really need marginaleffects
+mod = LinearRegression().fit(d[features], d['Y'])
+gb = GradientBoostingRegressor(n_estimators=200).fit(d[features], d['Y'])
+rf = RandomForestRegressor(n_estimators=200).fit(d[features], d['Y'])
+
+newdata = d[features].assign(X2 = lambda df: df['X2'].mean(), X3 = lambda df: df['X3'].mean())
+l_preds = mod.predict(newdata); g_preds = gb.predict(newdata); rf_preds = rf.predict(newdata)
+newdata['Linear Regression'] = l_preds; newdata['Gradient Boosted Tree'] = g_preds; newdata['Random Forest'] = rf_preds
+
+fig = px.scatter(
+    newdata,
+    x='X1', 
+    y=['Linear Regression','Gradient Boosted Tree','Random Forest'],
+    title='Fitted Values @ X1'
+)
+fig.update_layout(yaxis_title="Fitted Value")
+fig.show()
+```
+
+## Quadratic
+
+How about a quadratic effect? This data has distortion, but I don't think it is overwhelmingly obvious. This time I fit two linear regression, one which models the true effect & another that does not, and a gradient boosted tree.
+
+```{python}
+d['Y'] = 10 + d['X1']*-10 + (d['X2']**2)*2 + d['X3']*10 + f(0, 1, d.shape[0])
+px.scatter(d, x='X2', y='Y', title='Quadratic Effect: Simulated X & derived Y').show()
+```
+
+As expected, the linear regression that ignores the quadratic effects misses entirely. The gradient boosted tree recovers the effect! Nice.
+
+```{python}
+lr_unmodeled = smf.ols("Y ~ X1 + X2 + X3", data = d).fit()
+lr_modeled = smf.ols("Y ~ X1 + I(X2**2) + X3", data = d).fit()
+gb = GradientBoostingRegressor(n_estimators=100).fit(d[features], d['Y'])
+
+newdata = d[features].assign(X1 = lambda df: df['X1'].mean(), X3 = lambda df: df['X3'].mean())
+lr_un_preds = lr_unmodeled.predict(newdata); lr_m_preds = lr_modeled.predict(newdata); g_preds = gb.predict(newdata); rf_preds = rf.predict(newdata)
+newdata['Linear Regression (not-modeled)'] = lr_un_preds; newdata['Linear Regression (modeled)'] = lr_m_preds; newdata['Gradient Boosted Tree'] = g_preds
+
+fig = px.scatter(
+    newdata,
+    x='X2', 
+    y=['Linear Regression (not-modeled)','Linear Regression (modeled)', 'Gradient Boosted Tree'],
+    title='Fitted Values @ X2'
+)
+fig.update_layout(yaxis_title="Fitted Value")
+fig.show()
+```
+
+
+## Non-Linear
+
+What about a nonlinear effect? Same process as before. Our effect of interest is better hidden this time.
+
+```{python}
+d['Y'] = 10 + d['X1']*-20 + 2*np.exp(0.90 * d['X2']) + d['X3']*10 + f(0, 1, d.shape[0])
+px.scatter(d, x='X2', y='Y', title='Non-Linear Effect: Simulated X & derived Y').show()
+```
+
+Again the gradient boosted machine recovers the effect. Nice again.
+
+```{python}
+lr_unmodeled = smf.ols("Y ~ X1 + X2 + X3", data = d).fit()
+lr_modeled = smf.ols("Y ~ X1 + I(2*np.exp(0.75 * X2)) + X3", data = d).fit()
+gb = GradientBoostingRegressor(n_estimators=100).fit(d[features], d['Y'])
+
+newdata = d[features].assign(X1 = lambda df: df['X1'].mean(), X3 = lambda df: df['X3'].mean())
+lr_un_preds = lr_unmodeled.predict(newdata); lr_m_preds = lr_modeled.predict(newdata); g_preds = gb.predict(newdata); rf_preds = rf.predict(newdata)
+newdata['Linear Regression (not-modeled)'] = lr_un_preds; newdata['Linear Regression (modeled)'] = lr_m_preds; newdata['Gradient Boosted Tree'] = g_preds
+
+fig = px.scatter(
+    newdata,
+    x='X2', 
+    y=['Linear Regression (not-modeled)','Linear Regression (modeled)', 'Gradient Boosted Tree'],
+    title='Fitted Values @ X2'
+)
+fig.update_layout(yaxis_title="Fitted Value")
+fig.show()
+```
+
+## Interaction
+
+What about an unstated interaction? Not sure I formatted this one correct, but the output of the linear regression with the effect modeled & the gradient boosted tree are more similar than the non-modeled LR.
+
+
+```{python}
+d['X1_X3'] = d['X1']*d['X3']
+d['Y'] = 10 + d['X1']*-10 + d['X2']*50 + d['X3']*10 + (d['X1_X3'])*5 + f(0, 1, d.shape[0])
+px.scatter(d, x='X1_X3', y='Y', title='Non-Linear Effect: Simulated X & derived Y').show()
+```
+
+```{python}
+lr_unmodeled = smf.ols("Y ~ X1 + X2 + X3", data = d).fit()
+lr_modeled = smf.ols("Y ~ X1 + X2 + X3 + X1:X3", data = d).fit()
+gb = GradientBoostingRegressor(n_estimators=100).fit(d[features], d['Y'])
+
+newdata = d[features].assign(X2 = lambda df: df['X2'].mean())
+lr_un_preds = lr_unmodeled.predict(newdata); lr_m_preds = lr_modeled.predict(newdata); g_preds = gb.predict(newdata); rf_preds = rf.predict(newdata)
+newdata['Linear Regression (not-modeled)'] = lr_un_preds; newdata['Linear Regression (modeled)'] = lr_m_preds; newdata['Gradient Boosted Tree'] = g_preds
+
+fig = px.scatter(
+    newdata.assign(X1_X3=lambda df: df['X1'] * df['X3']),
+    x='X1_X3', 
+    y=['Linear Regression (not-modeled)','Linear Regression (modeled)', 'Gradient Boosted Tree'],
+    title='Fitted Values @ X1:X3'
+)
+fig.update_layout(yaxis_title="Fitted Value")
+fig.show()
+```
+
+
+
+
+<!-- 
+```python 
+
+# df = pd.read_csv("https://vincentarelbundock.github.io/Rdatasets/csv/causaldata/thornton_hiv.csv")
+# from formulaic import model_matrix
+# from sklearn.linear_model import LinearRegression
+
+# mod = me.sklearn(LinearRegression(), "got ~ distvct + tinc * age" )
+
+# f = "got ~ distvct + tinc * age"
+# y, X = model_matrix(f, df)
+
+# lr = LinearRegression()
+# lr.fit(X, y)
+# lr.X_ = X.copy(); lr.y_ = y.copy(); lr.formula = f
+
+# def sanitize_sklearn(mod, X, y):
+#     mod.X_ = X.copy()
+#     mod.y_ = y.copy()
+#     return mod
+```
+
+-->
+
+
+
