@@ -2,9 +2,10 @@
   {
     "listing": "/index.html",
     "items": [
+      "/posts/NGBoost/index.html",
+      "/posts/trees/index.html",
       "/posts/consumer_sent/index.html",
       "/posts/quarto_envs/index.html",
-      "/posts/NGBoost/index.html",
       "/posts/indy/index.html",
       "/posts/pipeline/index.html",
       "/posts/pandas/index.html",
