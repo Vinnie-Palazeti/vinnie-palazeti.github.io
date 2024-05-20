@@ -33,14 +33,14 @@ Prior to Vevo, I worked for several startups in the Sports & Horse wagering indu
 <p class="custom-title">{{< fa headphones >}}  **Data Scientist, 2023-Present**</p>
 <p class="custom-subtitle">Vevo</p>
 
-<p class="custom-title">{{< fa chart-bar >}}  **Data Scientist, 2022-2023**</p>
-<p class="custom-subtitle">AlphaPeak</p>
-
-<p class="custom-title"> {{< fa chart-line >}} **Data Scientist, 2020-2022**</p>
-<p class="custom-subtitle">Sports Betting Innovative Analytics</p>
+<p class="custom-title"> {{< fa chart-line >}} **Data Scientist / Engineer, 2020-2023**</p>
+<p class="custom-subtitle">Indy Stats</p>
 
 <p class="custom-title">{{< fa chalkboard-user >}}  **Statistician, 2019-2020**</p>
 <p class="custom-subtitle">Center for Criminal Justice Research</p>
+
+<p class="custom-title">{{< fa chalkboard-user >}}  **Finance Team, 2017-2019**</p>
+<p class="custom-subtitle">Magna Powertrain</p>
 
 
 ## Education
