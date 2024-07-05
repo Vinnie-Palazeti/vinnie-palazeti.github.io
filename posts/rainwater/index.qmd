@@ -52,7 +52,7 @@ Here is how Indiana property taxes are spent:
 
 I found this chart on this [website](https://gateway.ifionline.org/public/pts/Default.aspx).
 
-I was disappointed by Rainwater's response. He seemed to not know that this information is publically available, or he's just to lazy to do the work. 
+I was disappointed by Rainwater's response. He seemed to not know that this information is publicly available, or he's just to lazy to do the work. 
 
 
 ```{r}
@@ -109,7 +109,7 @@ spatial_data <- left_join(counties, data, by = c("NAME" = "county"))
 
 The only data required to estimate the expected receipts of Rainwater's property tax plan is real estate sales. With this information we can actually measure the exact amount of property tax brought in, so long as we have 7 years of data.
 
-The initial place I looked was MLS (Zillow). The [Indiana Association of Realtors](https://data.indianarealtors.com/) has couple great resources. Unfortunately, these sources only include Residential property. And, depending on the county, ~50% or more of net due tax comes from Commercial, Industrial, and Aggricultural property. Here's Adams county:
+The initial place I looked was MLS (Zillow). The [Indiana Association of Realtors](https://data.indianarealtors.com/) has a couple great resources. Unfortunately, these sources only include Residential property. And, depending on the county, ~50% or more of net due tax comes from Commercial, Industrial, and Aggricultural property. Here's Adams county:
 
 [![Adams County Property Tax](bar_chart_ptype.png)](https://gateway.ifionline.org/public/pts/pts-class.aspx)
 
@@ -117,13 +117,13 @@ The initial place I looked was MLS (Zillow). The [Indiana Association of Realtor
 
 Thankfully, the folks at [stats.indiana.edu](https://www.stats.indiana.edu/topic/sdf.asp) collect & make available the data from each property sale in Indiana. Without them, this would not have been possible. 
 
-I grabbed the states property tax spending by county [here](https://gateway.ifionline.org/public/pts/pts-levies-detail.aspx). And the total county disbursements [here](https://gateway.ifionline.org/public/download.aspx).
+I also grabbed the states property tax spending by county [here](https://gateway.ifionline.org/public/pts/pts-levies-detail.aspx). And the total county disbursements [here](https://gateway.ifionline.org/public/download.aspx).
 
-I've made the code used to aggregate this data publically [available](https://drive.google.com/file/d/1lzvu8UqMkSsXCP5ij5ub9QGQhrChEmkf/view?usp=sharing), and will provide the data at request (because it was annoying to get).
+I've made the code used to aggregate this data publicly [available](https://drive.google.com/file/d/1lzvu8UqMkSsXCP5ij5ub9QGQhrChEmkf/view?usp=sharing), and will provide the data at request (because it was annoying to get).
 
 # Findings
 
-I gathered all real estate sales in Indiana from 2017 to 2023. For each purchase I found 1% of the sale price. Here are the actual & estimated Property Tax Receipts for each county.
+I gathered all real estate sales in Indiana from 2017 to 2023. For each purchase I found 1% of the sale price. Here are the actual & estimated Property Tax Receipts for each county in 2023.
 
 ```{r}
 #| echo: false
@@ -139,7 +139,7 @@ data |>
 
 &nbsp;
 
-We can see that half of counties would see their property tax receipts reduced by 75%. No county would retain 50% of their current receipts. 
+Half of Hoosier counties would see their property tax receipts reduced by 75%. No county would retain 50% of their current receipts. 
 
 **Percent Change Summary**
 ```{r}
@@ -165,7 +165,7 @@ data |>
 
 &nbsp;
 
-Most of western counties will see a ~80-90% drop in property tax receipts. 
+Most western counties will see a ~80-90% drop in property tax receipts. 
 
 
 ```{r}
@@ -220,7 +220,7 @@ A quarter of Hoosier counties would have to reduce their total spending by ~20% 
 summary(na.omit(data$delta_disb))
 ```
 
-Howard, Lake, & Bartholomew Counties would need to reduce their total disbursments by 1/3.
+Howard, Lake, & Bartholomew Counties would need to reduce their total disbursments by 1/3 to cover the delta created by Rainwater's plan.
 
 ```{r}
 #| echo: false
