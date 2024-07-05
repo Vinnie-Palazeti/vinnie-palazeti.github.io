@@ -2,6 +2,7 @@
   {
     "listing": "/index.html",
     "items": [
+      "/posts/rainwater/index.html",
       "/posts/NGBoost/index.html",
       "/posts/trees/index.html",
       "/posts/consumer_sent/index.html",
