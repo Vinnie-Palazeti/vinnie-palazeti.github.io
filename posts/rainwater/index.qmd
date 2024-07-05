@@ -55,7 +55,6 @@ I found this chart on this [website](https://gateway.ifionline.org/public/pts/De
 I was disappointed by Rainwater's response. He seemed to not know that this information is publically available, or he's just to lazy to do the work. 
 
 
-
 ```{r}
 #| echo: false
 
@@ -116,7 +115,7 @@ The initial place I looked was MLS (Zillow). The [Indiana Association of Realtor
 
 &nbsp;
 
-Thankfully, the folks at [Stats.Indiana.edu](https://www.stats.indiana.edu/topic/sdf.asp) collect & make available the data from each property sale in Indiana. Without them, this would not have been possible. 
+Thankfully, the folks at [stats.indiana.edu](https://www.stats.indiana.edu/topic/sdf.asp) collect & make available the data from each property sale in Indiana. Without them, this would not have been possible. 
 
 I grabbed the states property tax spending by county [here](https://gateway.ifionline.org/public/pts/pts-levies-detail.aspx). And the total county disbursements [here](https://gateway.ifionline.org/public/download.aspx).
 
