@@ -1,0 +1,260 @@
+---
+title: Rainwater's Property Tax Plan
+subtitle: What would be the result?
+date: '2024-07-03'
+categories: [post]
+execute: 
+  warning: false
+format:
+  html:
+    toc: true
+---
+
+A few weeks ago, [Ethan Hatcher](https://x.com/EthanHatcher) mention on twitter that he would be interviewing [Donald Rainwater](https://www.rainwaterforindiana.com/), the Libertarian candidate for Governor of Indiana.
+
+Some of the folks at WIBC, Ethan & [Rob](https://x.com/RobMKendall) in particular, are ardently advocating for property tax reform. Rainwater has a made tax reduction his top issue; the [first](https://www.rainwaterforindiana.com/) listed on his campaign site.
+
+
+Here's his Property Tax policy:
+
+{{< 
+    video https://www.youtube.com/watch?v=9lX1rZFPq2s
+    title="Rainwater Property Tax Plan"
+    start="396"
+    aspect-ratio="21x9" 
+>}}
+
+&nbsp;
+
+It's very simple. The property tax will be 1% of the sale price each year. After 7% has been paid (7 years of payments) no more tax will be due.
+
+Hatcher & I often go back and forth on Twitter. When he posted that Rainwater would be on his Saturday night show, I asked him to pose a question.
+
+What would be the impact of Rainwater's property tax policy? How would it impact small Hoosier towns & would any cease to exist?
+
+Hatcher told me he would ask Rainwater this, and he's a man of his word:
+&nbsp;
+
+{{< 
+    video https://www.youtube.com/watch?v=9lX1rZFPq2s
+    title="Rainwater Interview"
+    start="490"
+    aspect-ratio="21x9" 
+>}}
+
+&nbsp;
+
+Rainwater responds by saying we should have a "real, serious conversation" about where property taxes are being spent today. He mentions that we, the citizens, should knock on the door and ask to see a transparent accounting of how our tax dollars are being spent.
+
+Here is how Indiana property taxes are spent:
+
+[![Property Taxes](ptax_piechart.png)](https://gateway.ifionline.org/public/pts/Default.aspx)
+
+I found this chart on this [website](https://gateway.ifionline.org/public/pts/Default.aspx).
+
+I was disappointed by Rainwater's response. He seemed to not know that this information is publically available, or he's just to lazy to do the work. 
+
+
+
+```{r}
+#| echo: false
+
+# required libraries
+library(sf)
+library(tidycensus)
+library(leaflet)
+library(tidyverse)
+options(tigris_use_cache = TRUE)
+library(kableExtra)
+library(RColorBrewer)
+```
+
+
+```{css, echo = FALSE}
+tbody {
+    overflow-y: auto;    /* Trigger vertical scroll    */
+    overflow-x: hidden;  /* Hide the horizontal scroll */
+}
+```
+
+```{r}
+#| echo: false
+
+directory <- paste(
+    getwd(),
+    'data',
+    sep='/')
+
+files<-list.files(directory, full.names=TRUE)
+data <- read.csv(files)
+
+```
+
+
+```{r}
+#| echo: false
+
+counties <- get_acs(
+  state = "IN",
+  geography = "county",
+  variables = "B01001_001",
+  geometry = TRUE,
+  year = 2022
+) |> st_transform(crs = 4326)
+
+counties$NAME <- str_to_title(counties$NAME)
+spatial_data <- left_join(counties, data, by = c("NAME" = "county"))
+```
+
+# Data
+
+The only data required to estimate the expected receipts of Rainwater's property tax plan is real estate sales. With this information we can actually measure the exact amount of property tax brought in, so long as we have 7 years of data.
+
+The initial place I looked was MLS (Zillow). The [Indiana Association of Realtors](https://data.indianarealtors.com/) has couple great resources. Unfortunately, these sources only include Residential property. And, depending on the county, ~50% or more of net due tax comes from Commercial, Industrial, and Aggricultural property. Here's Adams county:
+
+[![Adams County Property Tax](bar_chart_ptype.png)](https://gateway.ifionline.org/public/pts/pts-class.aspx)
+
+&nbsp;
+
+Thankfully, the folks at [Stats.Indiana.edu](https://www.stats.indiana.edu/topic/sdf.asp) collect & make available the data from each property sale in Indiana. Without them, this would not have been possible. 
+
+I grabbed the states property tax spending by county [here](https://gateway.ifionline.org/public/pts/pts-levies-detail.aspx). And the total county disbursements [here](https://gateway.ifionline.org/public/download.aspx).
+
+I've made the code used to aggregate this data publically [available](https://drive.google.com/file/d/1lzvu8UqMkSsXCP5ij5ub9QGQhrChEmkf/view?usp=sharing), and will provide the data at request (because it was annoying to get).
+
+# Findings
+
+I gathered all real estate sales in Indiana from 2017 to 2023. For each purchase I found 1% of the sale price. Here are the actual & estimated Property Tax Receipts for each county.
+
+```{r}
+#| echo: false
+
+data |> 
+    select(county, current_prop_tax, est_yearly_tax, delta_perc) |> 
+    mutate(delta_perc = round(delta_perc,3)) |> 
+    rename('County'='county', 'Current Property Tax'='current_prop_tax', 'RW. Plan Estimated Property Tax'='est_yearly_tax','% Change'='delta_perc') |>
+    kable(format.args = list(big.mark = ",")) |>
+    kable_styling("striped") |>
+    scroll_box(height = "600px")    
+```
+
+&nbsp;
+
+We can see that half of counties would see their property tax receipts reduced by 75%. No county would retain 50% of their current receipts. 
+
+**Percent Change Summary**
+```{r}
+#| echo: false
+summary(data$delta_perc)
+```
+
+&nbsp;
+
+Let's look at the top 5. Under Rainwater's suggested plan, Knox & Pike county will see a nearly ~90% drop in property tax.
+
+```{r}
+#| echo: false
+data |> 
+    select(county, current_prop_tax, est_yearly_tax, delta, delta_perc) |>
+    arrange(delta_perc) |>
+    mutate(delta_perc = round(delta_perc,3)) |> 
+    rename('County'='county', 'Current Property Tax'='current_prop_tax', 'RW. Plan Estimated Property Tax'='est_yearly_tax','Delta'='delta','% Change'='delta_perc') |>
+    head(5) |>
+    kable(format.args = list(big.mark = ","))
+```
+
+
+&nbsp;
+
+Most of western counties will see a ~80-90% drop in property tax receipts. 
+
+
+```{r}
+#| code-fold: true
+# here's how I created the plots. 
+pal <- colorNumeric(
+  palette = "OrRd",
+  reverse=T,
+  domain = spatial_data$delta_perc,
+)
+
+leaflet() |> 
+    addProviderTiles(providers$CartoDB.Positron) |>
+     addPolygons(data = spatial_data,
+              color = ~pal(delta_perc),
+              weight = 0.8,
+              smoothFactor = 0.1,
+              fillOpacity = 0.5,
+              label = ~paste0( NAME,': ', paste0(round(delta_perc,3)*100,'%'))
+    ) |>
+    setView(lng = -86.148,lat = 39.7691, zoom = 6.5) |>
+  addLegend(
+    position = "bottomright",
+    pal = pal,
+    values = spatial_data$delta_perc,
+    title = "% Reduction"
+  )    
+```
+
+&nbsp;
+
+What if counties completely stopped spending on debt/interest & economic development? Would that cover the loss in funding created by Rainwater's plan?
+
+**No.**
+
+**Economic Spending / R.W. Delta**
+
+This is the delta created by Rainwater's plan divided by the county's total disbursements for debt service/interest & economic development. 
+```{r}
+#| echo: false
+summary(na.omit(data$delta_disb_econ))
+```
+
+
+Half of Hoosier counties would need to spend ~500% more economic development & investment dollars to warrant Rainwater's cut. Every county^[No 2023 data for Owens, Franklin, and Vermillion], except for Newton, would not be able to make up for the loss in receipts. 
+
+A quarter of Hoosier counties would have to reduce their total spending by ~20% or more.
+
+**Total Disbursements % Change**
+```{r}
+#| echo: false
+summary(na.omit(data$delta_disb))
+```
+
+Howard, Lake, & Bartholomew Counties would need to reduce their total disbursments by 1/3.
+
+```{r}
+#| echo: false
+pal <- colorNumeric(
+  palette = "OrRd",
+  domain = spatial_data$delta_disb,
+  # na.color = "grey" 
+  na.color = NA
+)
+
+leaflet() |> 
+    addProviderTiles(providers$CartoDB.Positron) |>
+     addPolygons(data = spatial_data,
+              color = ~pal(delta_disb),
+              weight = 0.8,
+              smoothFactor = 0.1,
+              fillOpacity = 0.5,
+              label = ~paste0( NAME,': ', paste0(round(delta_disb,3)*100,'%'))
+    ) |>
+    setView(lng = -86.148,lat = 39.7691, zoom = 6.5) |>
+  addLegend(
+    position = "bottomright",
+    pal = pal,
+    values = spatial_data$delta_disb,
+    title = "% of Budget"
+  )    
+```
+
+
+# Summary
+
+Rainwater's plan **will require** large cuts to social spending. Nearly every county will see their property tax receipts reduced by 70-80%. The plurality of property taxes are spent on school, around 40%.
+
+Reducing "Economic Development" spending **cannot** fill the gap created by Rainwater's proposed policy. The amount counties spend on debt service/interest & economic development is far less than the gap created.
+
+It is now undeniable that **schools, police, fire, roads, infrastructure** spending will have to be cut. What will it be?
